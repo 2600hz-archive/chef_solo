@@ -1,0 +1,34 @@
+{
+  "name": "all_in_one",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[winkstart_deploy_whistle_fs]",
+    "role[winkstart_deploy_bigcouch]",
+    "role[winkstart_deploy_haproxy]",
+    "role[winkstart_deploy_whapps]",
+    "recipe[apache2::winkstart]"
+  ],
+  "description": "All in one role for the winkstart deploy tool",
+  "chef_type": "role",
+  "override_attributes": {
+    "bigcouch": {
+      "cluster": {
+        "w": "1",
+        "n": "1",
+        "q": "1",
+        "r": "1"
+      }
+    },
+    "haproxy": {
+      "proxy_port": "15984",
+      "app_server_role": "bigcouch",
+      "admin_member_port": "5986",
+      "admin_proxy_port": "15986",
+      "member_port": "5984"
+    }
+  }
+}

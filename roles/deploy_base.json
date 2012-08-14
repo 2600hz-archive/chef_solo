@@ -1,0 +1,43 @@
+{
+  "name": "deploy_base",
+  "default_attributes": {
+    "authorization": {
+      "sudo": {
+        "groups": [
+          "support"
+        ],
+        "passwordless": true,
+        "users": [
+          "support"
+        ]
+      }
+    }
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[yumrepo]",
+    "role[rvm]",
+    "recipe[selinux]",
+    "recipe[postfix]",
+    "recipe[basics]",
+    "recipe[timezone]",
+    "recipe[rsyslog]",
+    "recipe[ntp]",
+    "recipe[basics::iptables_disable]",
+    "recipe[logrotate::local0]",
+    "recipe[logrotate::chef-client]"
+  ],
+  "description": "Base Centos role for the winkstart deploy tool",
+  "chef_type": "role",
+  "override_attributes": {
+    "ntp": {
+      "servers": [
+        "0.us.pool.ntp.org",
+        "1.us.pool.ntp.org",
+        "2.us.pool.ntp.org"
+      ]
+    }
+  }
+}

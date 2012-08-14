@@ -1,0 +1,36 @@
+{
+  "replacing": {
+  },
+  "maintainer_email": "cookbooks@opscode.com",
+  "description": "Sets up sources for ubuntu",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "attributes": {
+  },
+  "suggestions": {
+  },
+  "dependencies": {
+    "apt": [
+
+    ]
+  },
+  "recipes": {
+    "ubuntu": "Sets up sources for the node's ubuntu release"
+  },
+  "conflicting": {
+  },
+  "platforms": {
+    "ubuntu": [
+
+    ]
+  },
+  "version": "0.8.1",
+  "license": "Apache 2.0",
+  "long_description": "",
+  "name": "ubuntu",
+  "providing": {
+  },
+  "maintainer": "Opscode, Inc."
+}

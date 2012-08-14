@@ -1,0 +1,29 @@
+{
+  "replacing": {
+  },
+  "maintainer_email": "support@cloudant.com",
+  "description": "Configures libicu",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "attributes": {
+  },
+  "suggestions": {
+  },
+  "dependencies": {
+  },
+  "recipes": {
+  },
+  "conflicting": {
+  },
+  "platforms": {
+  },
+  "version": "0.1.0",
+  "license": "Apache 2.0",
+  "long_description": "Configures libicu",
+  "name": "libicu",
+  "providing": {
+  },
+  "maintainer": "Cloudant"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "winkstart_deploy_whistle_fs",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+    "production": [
+
+    ],
+    "development": [
+
+    ],
+    "preprod": [
+
+    ],
+    "test": [
+
+    ]
+  },
+  "run_list": [
+    "role[deploy_base]",
+    "role[sip]",
+    "recipe[rsyslog::whistle]",
+    "recipe[erlang::default]",
+    "recipe[freeswitch::whistle]",
+    "recipe[logrotate::freeswitch]"
+  ],
+  "description": "Winkstart deployment role for freeswitch for whistle",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

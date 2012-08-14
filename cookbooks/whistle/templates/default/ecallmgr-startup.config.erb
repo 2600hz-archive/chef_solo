@@ -1,0 +1,2 @@
+{fs_nodes, [<%= @fs_nodes['freeswitch']['servers'].map{|k,v| "\'freeswitch@#{v}\'"}.join(',') %>]}.
+{fs_cmds, [{'load', "mod_sofia"}]}.

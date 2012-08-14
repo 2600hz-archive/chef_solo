@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# This script is managed by Chef. 
+# Local modifications will be overwritten.
+# Nuked from space to make sure its safe
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+
+sleep 120
+
+date > /tmp/date
+
+service rabbitmq-server start
+
+sleep 20
+
+bluepill load /etc/bluepill/bigcouch.pill
+
+sleep 20
+
+bluepill load /etc/bluepill/whapps.pill
+
+sleep 10
+
+service ecallmgr start
+
+date >> /tmp/date

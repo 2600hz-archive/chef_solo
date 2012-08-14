@@ -1,0 +1,28 @@
+{
+  "name": "winkstart_deploy_haproxy",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+    "production": [
+
+    ],
+    "development": [
+
+    ],
+    "preprod": [
+
+    ],
+    "test": [
+
+    ]
+  },
+  "run_list": [
+    "role[deploy_base]",
+    "recipe[haproxy::public_bigcouch_lb]"
+  ],
+  "description": "Winkstart deployment role for haproxy",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

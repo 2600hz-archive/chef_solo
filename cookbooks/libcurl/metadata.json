@@ -1,0 +1,29 @@
+{
+  "replacing": {
+  },
+  "maintainer_email": "support@cloudant.com",
+  "description": "Configures libcurl",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "attributes": {
+  },
+  "suggestions": {
+  },
+  "dependencies": {
+  },
+  "recipes": {
+  },
+  "conflicting": {
+  },
+  "platforms": {
+  },
+  "version": "0.1.0",
+  "license": "Apache 2.0",
+  "long_description": "Configures libcurl",
+  "name": "libcurl",
+  "providing": {
+  },
+  "maintainer": "Cloudant"
+}

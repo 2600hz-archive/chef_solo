@@ -1,0 +1,18 @@
+# Managed by chef
+# Local modifications will be overwritten
+#
+
+Bluepill.application("bigcouch") do |app|
+  app.process("bigcouch") do |process|
+    process.pid_command = "ps -ef | grep -v grep | grep beam | grep bigcouch | awk '{print $2}'"
+    process.start_command = "service bigcouch start"
+    process.stop_command = "service bigcouch stop"
+    process.start_grace_time = 15.seconds
+    process.stop_grace_time = 15.seconds
+    process.restart_grace_time = 10.seconds
+    process.stdout = process.stderr = "/tmp/bigcouch.log"
+    process.daemonize = true
+
+    checks :http, :every => 10.seconds, :times => 3, :url => 'http://127.0.0.1:5984/', :kind => :success, :pattern => /"couchdb":"Welcome","version":"1.1.*","bigcouch":"*"/, :timeout => 3.seconds
+  end
+end

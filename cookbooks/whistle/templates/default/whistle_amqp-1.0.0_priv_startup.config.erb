@@ -1,0 +1,5 @@
+<% if node.has_key?("whistle_amqp_ip") %>
+  {amqp_uri, "amqp://guest:guest@<%= node[:whistle_amqp_ip] %>:5672"}.
+<% else %>
+  {amqp_uri, "amqp://guest:guest@<%= node[:ipaddress] %>:5672"}.
+<% end %>

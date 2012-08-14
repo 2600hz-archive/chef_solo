@@ -1,0 +1,29 @@
+{
+  "name": "winkstart_deploy_bigcouch",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+    "production": [
+
+    ],
+    "development": [
+
+    ],
+    "preprod": [
+
+    ],
+    "test": [
+
+    ]
+  },
+  "run_list": [
+    "role[deploy_base]",
+    "role[bigcouch]",
+    "recipe[bigcouch::cluster]"
+  ],
+  "description": "Winkstart deployment role for BigCouch",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "winkstart_deploy_whapps",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+    "production": [
+
+    ],
+    "development": [
+
+    ],
+    "preprod": [
+
+    ],
+    "test": [
+
+    ]
+  },
+  "run_list": [
+    "role[deploy_base]",
+    "recipe[rsyslog::whistle]",
+    "role[github-whistle]"
+  ],
+  "description": "Winkstart deployment role for WhApps",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

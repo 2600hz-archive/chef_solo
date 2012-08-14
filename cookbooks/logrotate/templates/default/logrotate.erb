@@ -1,0 +1,12 @@
+<%= @paths %> {
+        daily
+        missingok
+        rotate <%= @rotate %>
+        <% if @size %>
+        size <%= @size %>
+        <% end %>
+        compress
+	create
+        delaycompress
+        copytruncate
+}

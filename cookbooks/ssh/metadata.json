@@ -1,0 +1,29 @@
+{
+  "replacing": {
+  },
+  "maintainer_email": "sysadmins@37signals.com",
+  "description": "Configures ssh",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "attributes": {
+  },
+  "suggestions": {
+  },
+  "dependencies": {
+  },
+  "recipes": {
+  },
+  "conflicting": {
+  },
+  "platforms": {
+  },
+  "version": "0.1.0",
+  "license": "Apache v2.0",
+  "long_description": "",
+  "name": "ssh",
+  "providing": {
+  },
+  "maintainer": "37signals"
+}

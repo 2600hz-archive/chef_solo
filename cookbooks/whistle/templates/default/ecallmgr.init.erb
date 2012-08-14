@@ -1,0 +1,52 @@
+#!/bin/bash
+# eCallMgr startup script
+ 
+# chkconfig: 345 90 90
+# description: eCallMgr Startup Script
+ 
+RUN_AS_USER=whistle
+WHISTLE_HOME=/opt/whistle
+HOME=/opt/whistle
+start() {
+        echo "Starting eCallMgr: "
+        if [ "x$USER" != "x$RUN_AS_USER" ]; then
+          su - $RUN_AS_USER --session-command "$WHISTLE_HOME/whistle/ecallmgr/start.sh"
+        else
+          $WHISTLE_HOME/whistle/ecallmgr/start.sh
+        fi
+        echo "done."
+}
+stop() {
+        echo "Shutting down eCallMgr: "
+        if [ "x$USER" != "x$RUN_AS_USER" ]; then
+          for x in `ps -ef | grep whistle | grep -v grep | grep ecallmgr | awk '{print $2}'`; do echo "Killing eCallMgr PID:" ${x}; kill ${x}; done
+        else
+          for x in `ps -ef | grep whistle | grep -v grep | grep ecallmgr | awk '{print $2}'`; do echo "foo"${x}; done
+        fi
+        echo "done."
+}
+status() {
+        export HOME=$WHISTLE_HOME
+        $WHISTLE_HOME/whistle/utils/command_bridge/command_bridge -n ecallmgr ecallmgr_config get fs_nodes
+}
+ 
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status
+        ;;
+  restart)
+        stop
+        sleep 10
+        start
+        ;;
+  *)
+        echo "Usage: $0 {start|status|stop|restart}"
+esac
+ 
+exit 0

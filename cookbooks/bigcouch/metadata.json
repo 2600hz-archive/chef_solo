@@ -1,0 +1,41 @@
+{
+  "replacing": {
+  },
+  "maintainer_email": "support@cloudant.com",
+  "description": "Configures bigcouch",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "attributes": {
+  },
+  "suggestions": {
+  },
+  "dependencies": {
+    "libicu": [
+
+    ],
+    "runit": [
+
+    ],
+    "spidermonkey": [
+
+    ],
+    "libcurl": [
+
+    ]
+  },
+  "recipes": {
+  },
+  "conflicting": {
+  },
+  "platforms": {
+  },
+  "version": "0.1.0",
+  "license": "Apache 2.0",
+  "long_description": "Configures bigcouch",
+  "name": "bigcouch",
+  "providing": {
+  },
+  "maintainer": "Cloudant"
+}

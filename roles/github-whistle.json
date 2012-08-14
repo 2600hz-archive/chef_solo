@@ -1,0 +1,35 @@
+{
+  "name": "github-whistle",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+    "production": [
+
+    ],
+    "development": [
+
+    ],
+    "preprod": [
+
+    ],
+    "test": [
+
+    ]
+  },
+  "run_list": [
+    "role[deploy_base]",
+    "recipe[logrotate::trunkstore]",
+    "recipe[rsyslog]",
+    "recipe[rabbitmq]",
+    "recipe[erlang]",
+    "recipe[whistle::rpm]"
+  ],
+  "description": "whistle apps role",
+  "chef_type": "role",
+  "override_attributes": {
+    "haproxy": {
+      "app_server_role": "bigcouch"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "winkstart_deploy_opensips",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+    "production": [
+
+    ],
+    "development": [
+
+    ],
+    "preprod": [
+
+    ],
+    "test": [
+
+    ]
+  },
+  "run_list": [
+    "role[deploy_base]",
+    "recipe[rsyslog::whistle]",
+    "recipe[logrotate::opensip]",
+    "recipe[opensips]"
+  ],
+  "description": "Winkstart deployment role for opensips",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

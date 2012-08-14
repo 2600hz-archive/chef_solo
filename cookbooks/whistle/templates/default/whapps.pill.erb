@@ -1,0 +1,11 @@
+Bluepill.application("whapps") do |app|
+  app.process("whapps") do |process|
+    process.pid_command = "ps -ef | grep whistle | grep -v grep | grep whistle_apps | awk '{print $2}'"
+    process.start_command = "service whapps start"
+    process.start_grace_time = 10.seconds
+    process.stop_grace_time = 10.seconds
+    process.restart_grace_time = 10.seconds
+    process.stdout = process.stderr = "/tmp/foo.log"
+    #process.daemonize = true
+  end
+end

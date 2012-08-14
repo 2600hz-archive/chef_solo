@@ -1,0 +1,27 @@
+; local customizations are stored here
+
+[admins]
+<%= node[:couchdb_username] %> = <%= node[:couchdb_plaintext_password] %>
+
+[couch_httpd_auth]
+secret = 73ca45417d75eaad90a127a723238b96
+
+[couchdb]
+database_dir = <%= @node[:bigcouch][:database_dir] %>
+view_index_dir = <%= @node[:bigcouch][:view_index_dir] %>
+
+[cluster]
+q=<%= @node['bigcouch']['cluster']['q'] %>
+r=<%= @node['bigcouch']['cluster']['r'] %>
+w=<%= @node['bigcouch']['cluster']['w'] %>
+n=<%= @node['bigcouch']['cluster']['n'] %>
+z=<%= @node['bigcouch']['cluster']['z'] %>
+[chttpd]
+port = 5984
+backlog = 512
+docroot = /opt/bigcouch/share/www
+bind_address = 0.0.0.0
+
+[httpd]
+port = 5986
+bind_address = 0.0.0.0

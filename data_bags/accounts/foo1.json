@@ -1,0 +1,23 @@
+{
+  "freeswitch": {
+    "servers": {
+      "localhost": "127.0.0.1"
+    }
+  },
+  "id": "foo1",
+  "whapps": {
+    "servers": {
+      "localhost": "127.0.0.1"
+    }
+  },
+  "opensips": {
+    "servers": {
+      "localhost": "127.0.0.1"
+    }
+  },
+  "bigcouch": {
+    "servers": {
+      "localhost": "127.0.0.1"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+#!/bin/bash
+# 2600hz Whapps startup script
+ 
+# chkconfig: 345 90 90
+# description: Whapps Startup Script
+ 
+RUN_AS_USER=whistle
+WHISTLE_HOME=/opt/whistle
+
+start() {
+        echo "Starting Whapps: "
+        if [ "x$USER" != "x$RUN_AS_USER" ]; then
+          su - $RUN_AS_USER -c "$WHISTLE_HOME/whistle/whistle_apps/start.sh"
+        else
+          $WHISTLE_HOME/whistle/whistle_apps/start.sh
+        fi
+        echo "done."
+}
+start-dev() {
+        echo "Starting Whapps in dev mode: "
+        if [ "x$USER" != "x$RUN_AS_USER" ]; then
+          su - $RUN_AS_USER -c "$WHISTLE_HOME/whistle/whistle_apps/start.sh"
+        else
+          $WHISTLE_HOME/whistle/whistle_apps/start.sh
+        fi
+        echo "done."
+}
+stop() {
+        echo "Shutting down Whapps: "
+        if [ "x$USER" != "x$RUN_AS_USER" ]; then
+          for x in `ps -ef | grep whistle | grep -v grep | grep whistle_apps | awk '{print $2}'`; do echo "Killing Whapps PID:" ${x}; kill ${x}; done
+        else
+          for x in `ps -ef | grep whistle | grep -v grep | grep whistle_apps | awk '{print $2}'`; do echo "foo"${x}; done
+        fi
+        echo "done."
+}
+status() {
+        export HOME=$WHISTLE_HOME
+        $WHISTLE_HOME/whistle/whistle_apps/whistle_apps_ctl running_apps
+}
+ 
+case "$1" in
+  start)
+        start
+        ;;
+  start-dev)
+        start-dev
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status
+        ;;
+  restart)
+        stop
+        sleep 10
+        start
+        ;;
+  *)
+        echo "Usage: $0 {start|start-dev|status|stop|restart}"
+esac
+ 
+exit 0

@@ -1,0 +1,11 @@
+Bluepill.application("ecallmgr") do |app|
+  app.process("ecallmgr") do |process|
+    process.pid_command = "ps -ef | grep whistle | grep -v grep | grep ecallmgr | awk '{print $2}'"
+    process.start_command = "service ecallmgr start"
+    process.start_grace_time = 10.seconds
+    process.stop_grace_time = 10.seconds
+    process.restart_grace_time = 10.seconds
+    process.stdout = process.stderr = "/tmp/ecallmgr.log"
+    #process.daemonize = true
+  end
+end

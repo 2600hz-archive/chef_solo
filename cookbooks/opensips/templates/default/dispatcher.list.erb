@@ -1,0 +1,7 @@
+# Cooked and Served up by Chef for <%= node[:fqdn] %>
+# Local modifications will be overwritten.
+
+# setit(integer) destination(sip uri) flags (integer, optional)
+<% @nodes['freeswitch']['servers'].each do |fqdn, ipaddress| -%>
+1 sip:<%= ipaddress %>:5060 2
+<% end -%>
