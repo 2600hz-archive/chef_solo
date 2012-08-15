@@ -1,9 +1,9 @@
 set[:couchdb_port] = 5984
-set[:whistle][:whistle_apps_dir] = "/opt/whistle/whistle/whistle_apps"
-set[:whistle][:whistle_erl_dir] = "/opt/whistle/whistle/ecallmgr"
-set[:whistle][:whistle_git_url] = "git@source.2600hz.org:whistle.git"
-set[:whistle][:default_apps] = "sysconf, notify, cdr, conference, stepswitch, callflow, crossbar, media_mgr, hangups, registrar"
-set[:whistle][:homedir] = "/opt/whistle"
+set[:kazoo][:kazoo_apps_dir] = "/opt/kazoo/whistle_apps"
+set[:kazoo][:kazoo_erl_dir] = "/opt/kazoo/ecallmgr"
+set[:kazoo][:kazoo_git_url] = "git@source.2600hz.org:whistle.git"
+set[:kazoo][:default_apps] = "sysconf, notify, cdr, conference, stepswitch, callflow, crossbar, media_mgr, hangups, registrar"
+set[:kazoo][:homedir] = "/opt/kazoo"
 
 # attribs for user
 set[:bigcouch][:erlang][:cookie] = "W41stl3@mqP"
