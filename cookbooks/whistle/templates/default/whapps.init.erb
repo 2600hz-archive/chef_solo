@@ -4,24 +4,24 @@
 # chkconfig: 345 90 90
 # description: Whapps Startup Script
  
-RUN_AS_USER=whistle
-WHISTLE_HOME=/opt/whistle
+RUN_AS_USER=kazoo
+KAZOO_HOME=/opt/kazoo
 
 start() {
         echo "Starting Whapps: "
         if [ "x$USER" != "x$RUN_AS_USER" ]; then
-          su - $RUN_AS_USER -c "$WHISTLE_HOME/whistle/whistle_apps/start.sh"
+          su - $RUN_AS_USER -c "$KAZOO_HOME/whistle_apps/start.sh"
         else
-          $WHISTLE_HOME/whistle/whistle_apps/start.sh
+          $KAZO_HOME/whistle_apps/start.sh
         fi
         echo "done."
 }
 start-dev() {
         echo "Starting Whapps in dev mode: "
         if [ "x$USER" != "x$RUN_AS_USER" ]; then
-          su - $RUN_AS_USER -c "$WHISTLE_HOME/whistle/whistle_apps/start.sh"
+          su - $RUN_AS_USER -c "$KAZOO_HOME/whistle_apps/start.sh"
         else
-          $WHISTLE_HOME/whistle/whistle_apps/start.sh
+          $KAZOO_HOME/whistle_apps/start.sh
         fi
         echo "done."
 }
@@ -35,8 +35,8 @@ stop() {
         echo "done."
 }
 status() {
-        export HOME=$WHISTLE_HOME
-        $WHISTLE_HOME/whistle/whistle_apps/whistle_apps_ctl running_apps
+        export HOME=$KAZOO_HOME
+        $KAZOO_HOME/whistle_apps/whistle_apps_ctl running_apps
 }
  
 case "$1" in

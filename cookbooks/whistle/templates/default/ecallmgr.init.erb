@@ -4,15 +4,15 @@
 # chkconfig: 345 90 90
 # description: eCallMgr Startup Script
  
-RUN_AS_USER=whistle
-WHISTLE_HOME=/opt/whistle
-HOME=/opt/whistle
+RUN_AS_USER=kazoo
+KAZOO_HOME=/opt/kazoo
+HOME=/opt/kazoo
 start() {
         echo "Starting eCallMgr: "
         if [ "x$USER" != "x$RUN_AS_USER" ]; then
-          su - $RUN_AS_USER --session-command "$WHISTLE_HOME/whistle/ecallmgr/start.sh"
+          su - $RUN_AS_USER --session-command "$KAZOO_HOME/ecallmgr/start.sh"
         else
-          $WHISTLE_HOME/whistle/ecallmgr/start.sh
+          $KAZOO_HOME/ecallmgr/start.sh
         fi
         echo "done."
 }
@@ -26,8 +26,8 @@ stop() {
         echo "done."
 }
 status() {
-        export HOME=$WHISTLE_HOME
-        $WHISTLE_HOME/whistle/utils/command_bridge/command_bridge -n ecallmgr ecallmgr_config get fs_nodes
+        export HOME=$KAZOO_HOME
+        $KAZOO_HOME/utils/command_bridge/command_bridge -n ecallmgr ecallmgr_config get fs_nodes
 }
  
 case "$1" in
