@@ -30,15 +30,7 @@ Chef::Log.info("#################################");
 members.each do |fqdn, ipaddress|
   http_request "adding #{fqdn} to cluster" do
     action :put
-    if node.has_key?("cloud")
-      if node[:cloud][:provider] == "linode"
-        url "http://0.0.0.0:5986/nodes/bigcouch@#{m[:fqdn]}" 
-      else
-        url "http://#{node[:cloud][:private_ips][0]}:5986/nodes/bigcouch@#{m[:fqdn]}" 
-      end
-    else
-      url "http://0.0.0.0:5986/nodes/bigcouch@#{fqdn}"
-    end
+    url "http://0.0.0.0:5986/nodes/bigcouch@#{fqdn}"
     message :data => ""
     ignore_failure true
   end
