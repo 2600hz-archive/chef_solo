@@ -19,7 +19,7 @@
 
 include_recipe "apache2::winkstart"
 
-%w{winkstart winkstart-cluster winkstart-connect winkstart-dashboard winkstart-indesign winkstart-phone winkstart-provision winkstart-userportal }.each do |pkg|
+%w{ kazoo_ui }.each do |pkg|
 	yum_package "#{pkg}" do 
 		action :upgrade
 	end
