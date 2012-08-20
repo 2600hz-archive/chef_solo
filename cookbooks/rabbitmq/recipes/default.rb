@@ -49,6 +49,10 @@ when "debian", "ubuntu"
   package "rabbitmq-server"
 
 when "redhat", "centos", "scientific","amazon"
+  package "qpidd" do
+    action :remove
+  end
+
   package "rabbitmq-server" do
     action :remove
     not_if "rpm -qa | grep rabbitmq-server-2.8"
