@@ -49,10 +49,6 @@ when "debian", "ubuntu"
   package "rabbitmq-server"
 
 when "redhat", "centos", "scientific","amazon"
-  package "qpidd" do
-    action :remove
-  end
-
   package "rabbitmq-server" do
     action :remove
     not_if "rpm -qa | grep rabbitmq-server-2.8"
@@ -77,6 +73,10 @@ when "redhat", "centos", "scientific","amazon"
   end
 
   if node[:platform_version].to_i > 5
+    package "qpidd" do
+      action :remove
+    end
+
     execute "rm /etc/init.d/rabbitmq-server" do
       ignore_failure true
     end
