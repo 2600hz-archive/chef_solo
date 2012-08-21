@@ -27,7 +27,7 @@ stop() {
 }
 status() {
         export HOME=$KAZOO_HOME
-        $KAZOO_HOME/utils/command_bridge/command_bridge -n ecallmgr ecallmgr_config get fs_nodes
+        $KAZOO_HOME/utils/sup/sup -n ecallmgr ecallmgr_maintenance list_fs_nodes
 }
  
 case "$1" in
