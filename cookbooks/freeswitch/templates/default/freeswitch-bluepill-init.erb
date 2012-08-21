@@ -12,7 +12,7 @@
 ### END INIT INFO
 
 # Check for missing binaries
-BLUEPILL_BIN=/usr/bin/bluepill
+BLUEPILL_BIN=`which bluepill`
 test -x $BLUEPILL_BIN || { echo "$BLUEPILL_BIN not installed";
         if [ "$1" = "stop" ]; then exit 0;
         else exit 5; fi; }
