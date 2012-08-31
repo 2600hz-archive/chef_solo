@@ -289,7 +289,7 @@ script "change ownership of freeswitch dirs" do
   end
 
 bluepill_service "freeswitch" do
-  action [:load, :start]
+  action [:load]
 end
 
 script "import local media" do
