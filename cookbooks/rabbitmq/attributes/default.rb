@@ -1,4 +1,5 @@
 default[:rabbitmq][:nodename]  = "rabbit"
+default[:rabbitmq][:erlang_cookie] = "cookiemonster"
 default[:rabbitmq][:config] = nil
 set_unless[:rabbitmq][:address]  = "0.0.0.0"
 set_unless[:rabbitmq][:port]  = "5672"

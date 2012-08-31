@@ -37,6 +37,14 @@ template "/etc/rabbitmq/rabbitmq-env.conf" do
   mode 0644
 end
 
+service "rabbitmq-server" do
+  start_command "setsid /etc/init.d/rabbitmq-server start"
+  stop_command "setsid /etc/init.d/rabbitmq-server stop"
+  restart_command "setsid /etc/init.d/rabbitmq-server restart"
+  status_command "setsid /etc/init.d/rabbitmq-server status"
+  supports :status => true, :restart => true
+end
+
 case node[:platform]
 when "debian", "ubuntu"
   apt_repository "rabbitmq" do
@@ -58,6 +66,17 @@ when "redhat", "centos", "scientific","amazon"
     action :upgrade
   end
 
+  service "rabbitmq-server" do
+    action :stop
+  end
+
+  template "/var/lib/rabbitmq/.erlang.cookie" do
+    source "doterlang.cookie.erb"
+    owner "rabbitmq"
+    group "rabbitmq"
+    mode 0400
+  end
+
   template "/usr/lib/rabbitmq/lib/rabbitmq_server-2.8.4/sbin/rabbitmqctl" do
     source "rabbitmqctl.erb"
     owner "root"
@@ -72,6 +91,10 @@ when "redhat", "centos", "scientific","amazon"
     mode 0755
   end
 
+  service "rabbitmq-server" do
+    action :start
+  end
+
   if node[:platform_version].to_i > 5
     package "qpidd" do
       action :remove
@@ -79,6 +102,13 @@ when "redhat", "centos", "scientific","amazon"
 
     execute "rm /etc/init.d/rabbitmq-server" do
       ignore_failure true
+    end
+
+    template "/var/lib/rabbitmq/.erlang.cookie" do
+      source "doterlang.cookie.erb"
+      owner "rabbitmq"
+      group "rabbitmq"
+      mode 0400
     end
 
     execute "start rabbitmq-server" do
@@ -95,9 +125,13 @@ end
 
 case node[:platform]
 when "debian", "ubuntu"
-  service "rabbitmq-server"
+  service "rabbitmq-server" do
+    action [:enable, :start]
+  end
 when "redhat", "centos", "scientific","amazon"
   if node[:platform_version].to_i <= 5
-    service "rabbitmq-server"
+    service "rabbitmq-server" do
+      action [ :enable, :start ]
+    end
   end
 end
