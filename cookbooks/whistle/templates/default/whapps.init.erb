@@ -28,9 +28,9 @@ start-dev() {
 stop() {
         echo "Shutting down Whapps: "
         if [ "x$USER" != "x$RUN_AS_USER" ]; then
-          for x in `ps -ef | grep whistle | grep -v grep | grep whistle_apps | awk '{print $2}'`; do echo "Killing Whapps PID:" ${x}; kill ${x}; done
+          for x in `ps -ef | grep kazoo | grep -v grep | grep whistle_apps | awk '{print $2}'`; do echo "Killing Whapps PID:" ${x}; kill ${x}; done
         else
-          for x in `ps -ef | grep whistle | grep -v grep | grep whistle_apps | awk '{print $2}'`; do echo "foo"${x}; done
+          for x in `ps -ef | grep kazoo | grep -v grep | grep whistle_apps | awk '{print $2}'`; do echo "foo"${x}; done
         fi
         echo "done."
 }

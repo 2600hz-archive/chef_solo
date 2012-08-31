@@ -19,9 +19,9 @@ start() {
 stop() {
         echo "Shutting down eCallMgr: "
         if [ "x$USER" != "x$RUN_AS_USER" ]; then
-          for x in `ps -ef | grep whistle | grep -v grep | grep ecallmgr | awk '{print $2}'`; do echo "Killing eCallMgr PID:" ${x}; kill ${x}; done
+          for x in `ps -ef | grep kazoo | grep -v grep | grep ecallmgr | awk '{print $2}'`; do echo "Killing eCallMgr PID:" ${x}; kill ${x}; done
         else
-          for x in `ps -ef | grep whistle | grep -v grep | grep ecallmgr | awk '{print $2}'`; do echo "foo"${x}; done
+          for x in `ps -ef | grep kazoo | grep -v grep | grep ecallmgr | awk '{print $2}'`; do echo "foo"${x}; done
         fi
         echo "done."
 }
