@@ -93,7 +93,7 @@ template "/opt/bigcouch/etc/local.ini" do
   owner "bigcouch"
   group "bigcouch"
   mode 0644
-#  notifies :restart, resources(:service => "bigcouch")
+  notifies :restart, resources(:service => "bigcouch"), :immediately
 end
 
 template "/etc/security/limits.d/bigcouch.limits.conf" do

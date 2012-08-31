@@ -6,7 +6,7 @@ set[:kazoo][:default_apps] = "sysconf, notify, cdr, conference, stepswitch, call
 set[:kazoo][:homedir] = "/opt/kazoo"
 
 # attribs for user
-set[:bigcouch][:erlang][:cookie] = "W41stl3@mqP"
+set[:bigcouch][:erlang][:cookie] = "cookiemonster"
 
 set['haproxy']['admin_member_port'] = "5986"
 set['haproxy']['admin_proxy_port'] = "15986"

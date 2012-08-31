@@ -30,7 +30,7 @@ set[:bigcouch][:view_index_dir] = "/srv/view_index"
 set[:bigcouch][:bind_address] = "127.0.0.1"
 
 # attribs for user
-set[:bigcouch][:erlang][:cookie] = "W41stl3@mqP"
+set[:bigcouch][:erlang][:cookie] = "cookiemonster"
 
 # attribs for releases
 
