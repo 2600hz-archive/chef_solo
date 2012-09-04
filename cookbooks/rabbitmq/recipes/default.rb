@@ -37,14 +37,6 @@ template "/etc/rabbitmq/rabbitmq-env.conf" do
   mode 0644
 end
 
-service "rabbitmq-server" do
-  start_command "setsid /etc/init.d/rabbitmq-server start"
-  stop_command "setsid /etc/init.d/rabbitmq-server stop"
-  restart_command "setsid /etc/init.d/rabbitmq-server restart"
-  status_command "setsid /etc/init.d/rabbitmq-server status"
-  supports :status => true, :restart => true
-end
-
 case node[:platform]
 when "debian", "ubuntu"
   apt_repository "rabbitmq" do
@@ -57,6 +49,16 @@ when "debian", "ubuntu"
   package "rabbitmq-server"
 
 when "redhat", "centos", "scientific","amazon"
+  if node['platform_version'].to_i = 5
+    service "rabbitmq-server" do
+      start_command "setsid /etc/init.d/rabbitmq-server start"
+      stop_command "setsid /etc/init.d/rabbitmq-server stop"
+      restart_command "setsid /etc/init.d/rabbitmq-server restart"
+      status_command "setsid /etc/init.d/rabbitmq-server status"
+      supports :status => true, :restart => true
+    end
+  end
+
   package "rabbitmq-server" do
     action :remove
     not_if "rpm -qa | grep rabbitmq-server-2.8"
@@ -91,10 +93,6 @@ when "redhat", "centos", "scientific","amazon"
     mode 0755
   end
 
-  service "rabbitmq-server" do
-    action :start
-  end
-
   if node[:platform_version].to_i > 5
     package "qpidd" do
       action :remove
@@ -119,6 +117,10 @@ when "redhat", "centos", "scientific","amazon"
       mode "0644"
       source "rabbitmq-server.conf.upstart.erb"
       notifies :run, resources(:execute => "start rabbitmq-server")
+    end
+  else
+    service "rabbitmq-server" do
+      action :start
     end
   end
 end
