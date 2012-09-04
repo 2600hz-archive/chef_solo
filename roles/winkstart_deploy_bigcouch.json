@@ -19,8 +19,7 @@
   },
   "run_list": [
     "role[deploy_base]",
-    "role[bigcouch]",
-    "recipe[bigcouch::cluster]"
+    "role[bigcouch]"
   ],
   "description": "Winkstart deployment role for BigCouch",
   "chef_type": "role",
