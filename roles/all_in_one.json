@@ -10,7 +10,8 @@
     "role[winkstart_deploy_bigcouch]",
     "role[winkstart_deploy_haproxy]",
     "role[winkstart_deploy_whapps]",
-    "recipe[apache2::winkstart]"
+    "recipe[apache2::winkstart]",
+    "recipe[winkstart]"
   ],
   "description": "All in one role for the winkstart deploy tool",
   "chef_type": "role",
