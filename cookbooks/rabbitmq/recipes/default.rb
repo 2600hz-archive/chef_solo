@@ -49,7 +49,7 @@ when "debian", "ubuntu"
   package "rabbitmq-server"
 
 when "redhat", "centos", "scientific","amazon"
-  if node['platform_version'].to_i = 5
+  if node[:platform_version].to_i = 5
     service "rabbitmq-server" do
       start_command "setsid /etc/init.d/rabbitmq-server start"
       stop_command "setsid /etc/init.d/rabbitmq-server stop"
