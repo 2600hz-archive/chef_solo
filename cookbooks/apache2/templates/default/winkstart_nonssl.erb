@@ -2,7 +2,6 @@
 	ServerAdmin <%= node[:apache][:contact] %>
 	ServerName <%= node['apache']['winkstart']['server_name'] %>
 	<% if node.has_key?("apache.winkstart.server_alias") %>
-	ServerAlias deploy.2600hz.com
 	<% end %>
 
 	ErrorLog /var/log/httpd/error.log
