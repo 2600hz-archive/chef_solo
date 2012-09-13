@@ -36,7 +36,7 @@ stop() {
 }
 status() {
         export HOME=$KAZOO_HOME
-        $KAZOO_HOME/whistle_apps/whistle_apps_ctl running_apps
+        $KAZOO_HOME/utils/sup/sup whapps_controller running_apps
 }
  
 case "$1" in
