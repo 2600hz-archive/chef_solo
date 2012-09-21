@@ -8,24 +8,12 @@
 # You can put your own initialization stuff in here if you don't
 # want to do the full Sys V style init stuff.
 
+BLUEPILLPATH=`/usr/bin/which bluepill`
+
 touch /var/lock/subsys/local
 
-sleep 120
-
-date > /tmp/date
-
-service rabbitmq-server start
-
-sleep 20
-
-bluepill load /etc/bluepill/bigcouch.pill
-
-sleep 20
-
-bluepill load /etc/bluepill/whapps.pill
-
-sleep 10
-
-service ecallmgr start
-
-date >> /tmp/date
+<% if node['platform_version'].to_i <= 5 %>
+/etc/init.d/rabbitmq-server start > /dev/null && $BLUEPILLPATH load /etc/bluepill/bigcouch.pill && sleep 10 && $BLUEPILLPATH load /etc/bluepill/whapps.pill > /dev/null && sleep 10 && $BLUEPILLPATH load /etc/bluepill/ecallmgr.pill > /dev/null && $BLUEPILLPATH load /etc/bluepill/freeswitch.pill > /dev/null
+<% else %>
+/sbin/start rabbitmq-server > /dev/null && $BLUEPILLPATH load /etc/bluepill/bigcouch.pill && sleep 10 && $BLUEPILLPATH load /etc/bluepill/whapps.pill > /dev/null && sleep 10 && $BLUEPILLPATH load /etc/bluepill/ecallmgr.pill > /dev/null && $BLUEPILLPATH load /etc/bluepill/freeswitch.pill > /dev/null
+<% end %>
