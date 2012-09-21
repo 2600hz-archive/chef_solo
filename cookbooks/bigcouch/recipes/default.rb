@@ -44,8 +44,8 @@ when "ubuntu"
   
 when "centos","redhat","amazon"
   
-  %w{openssl openssl-devel}.each do |openssl|
-    package openssl
+  %w{openssl openssl-devel}.each do |pkg|
+    package pkg
   end
 end
 
@@ -71,7 +71,7 @@ when "centos","redhat","amazon"
   service "bigcouch" do
     supports :start => true, :restart => true, :stop => true
     restart_command "/etc/init.d/bigcouch stop && sleep 8 && /etc/init.d/bigcouch start"
-    action [ :enable, :start ]
+    action [ :enable ]
   end
 
 end
@@ -118,6 +118,10 @@ end
 
 bluepill_service "bigcouch" do
   action [:load]
+end
+
+%w{db view_index}.each do |dir|
+  execute "chown -R bigcouch:bigcouch /srv/#{dir}"
 end
 
 case node[:platform]
