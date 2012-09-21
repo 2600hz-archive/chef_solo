@@ -24,3 +24,10 @@ include_recipe "apache2::winkstart"
 		action :upgrade
 	end
 end
+
+template "/var/www/html/config/config.js" do
+  source "config.js.erb"
+  owner "root"
+  group "root"
+  mode 0644
+end
