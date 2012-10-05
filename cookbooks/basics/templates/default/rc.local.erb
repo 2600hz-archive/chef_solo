@@ -11,7 +11,14 @@
 touch /var/lock/subsys/local
 
 <% if node['platform_version'].to_i <= 5 %>
+<<<<<<< Updated upstream
 /etc/init.d/rabbitmq-server start > /dev/null && /usr/local/rvm/gems/ruby-1.8.7-p370/bin/bluepill load /etc/bluepill/bigcouch.pill && sleep 10 && /usr/local/rvm/gems/ruby-1.8.7-p370/bin/bluepill load /etc/bluepill/whapps.pill > /dev/null && sleep 10 && /usr/local/rvm/gems/ruby-1.8.7-p370/bin/bluepill load /etc/bluepill/ecallmgr.pill > /dev/null && /usr/local/rvm/gems/ruby-1.8.7-p370/bin/bluepill load /etc/bluepill/freeswitch.pill > /dev/null
 <% else %>
 /sbin/start rabbitmq-server > /dev/null && /usr/local/rvm/gems/ruby-1.8.7-p370/bin/bluepill load /etc/bluepill/bigcouch.pill && sleep 10 && /usr/local/rvm/gems/ruby-1.8.7-p370/bin/bluepill load /etc/bluepill/whapps.pill > /dev/null && sleep 10 && /usr/local/rvm/gems/ruby-1.8.7-p370/bin/bluepill load /etc/bluepill/ecallmgr.pill > /dev/null && /usr/local/rvm/gems/ruby-1.8.7-p370/bin/bluepill load /etc/bluepill/freeswitch.pill > /dev/null
 <% end %>
+=======
+/etc/init.d/rabbitmq-server start > /dev/null && /usr/local/rvm/bin/bootup_bluepill load /etc/bluepill/bigcouch.pill && sleep 10 && /usr/local/rvm/bin/bootup_bluepill load /etc/bluepill/whapps.pill > /dev/null && sleep 10 && /usr/local/rvm/bin/bootup_bluepill load /etc/bluepill/ecallmgr.pill > /dev/null && /usr/local/rvm/bin/bootup_bluepill load /etc/bluepill/freeswitch.pill > /dev/null
+<% else %>
+/sbin/start rabbitmq-server > /dev/null && /usr/local/rvm/bin/bootup_bluepill load /etc/bluepill/bigcouch.pill && sleep 10 && /usr/local/rvm/bin/bootup_bluepill load /etc/bluepill/whapps.pill > /dev/null && sleep 10 && /usr/local/rvm/bin/bootup_bluepill load /etc/bluepill/ecallmgr.pill > /dev/null && /usr/local/rvm/bin/bootup_bluepill load /etc/bluepill/freeswitch.pill > /dev/null
+<% end %>
+>>>>>>> Stashed changes

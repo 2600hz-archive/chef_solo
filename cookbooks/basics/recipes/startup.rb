@@ -6,6 +6,8 @@
 #
 #
 
+execute "rvm wrapper 1.8.7@default bootup bluepill"
+
 template "/etc/rc.d/rc.local" do
   source "rc.local.erb"
   owner "root"
