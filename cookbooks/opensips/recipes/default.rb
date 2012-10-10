@@ -25,6 +25,8 @@ when "centos", "redhat", "fedora", "amazon"
   packages.each do |pkg|
     package pkg do
       action :install
+      version "1.6.4-8.el6"
+      options "--disablerepo=epel"
     end
   end
   
