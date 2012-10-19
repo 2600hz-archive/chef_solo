@@ -166,11 +166,6 @@ execute "chmod sup" do
   command "chmod +x /opt/kazoo/utils/sup/sup"
 end
 
-execute "chown /srv/db and /srv/view_index" do
-  command "chown -R bigcouch:bigcouch /srv/db /srv/view_index"
-  ignore_failure true
-end
-
 execute "updating alias" do
   command "/opt/kazoo/utils/sup/add_alias.sh"
 end
