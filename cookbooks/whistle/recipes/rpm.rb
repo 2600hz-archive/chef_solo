@@ -168,13 +168,7 @@ end
 
 execute "chown /srv/db and /srv/view_index" do
   command "chown -R bigcouch:bigcouch /srv/db /srv/view_index"
-end
-
-execute "migrate" do
-  command "/opt/kazoo/utils/sup/sup whapps_maintenance migrate"
   ignore_failure true
-  action :run
-  user "kazoo"
 end
 
 execute "updating alias" do
