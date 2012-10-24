@@ -33,13 +33,6 @@ when "debian", "ubuntu"
     interpreter "bash"
     user "root"
     cwd "/usr/src"
-    #if node.has_key("client_id")
-    #  http_request "Downloading FreeSWITCH Debian Packages" do
-    #    action :post
-    #    url "#{node[:crossbar_url]}:8000/v1/accounts/#{node[:client_id]}/servers/#{node[:server_id]}/deployment"
-    #    message :data => "{ \"freeswitch\" : { \"status\" : \"running\", \"detail\" : \"Downloading FreeSWITCH Debian Package\", \"current_phase\" : \"2\", \"total_phases\" : \"5\" } }"
-    #  end
-    #end
     code <<-EOH
 		cd /usr/src
 		wget http://hudson.2600hz.org/freeswitch-latest-amd64.deb
@@ -65,14 +58,6 @@ when "debian", "ubuntu"
   end
 
 when "centos", "redhat", "fedora", "amazon"
-
-  #if node.has_key("client_id")
-  #  http_request "Running FreeSWITCH install" do
-  #    action :post
-  #    url "#{node[:crossbar_url]}:8000/v1/accounts/#{node[:client_id]}/servers/#{node[:server_id]}/deployment"
-  #    message :data => "{ \"freeswitch\" : { \"status\" : \"running\", \"detail\" : \"Downloading FreeSWITCH Debian Package\", \"current_phase\" : \"2\", \"total_phases\" : \"5\" } }"
-  #  end
-  #end
   %w{
     freeswitch-application-abstraction
     freeswitch-application-avmd
@@ -126,19 +111,13 @@ when "centos", "redhat", "fedora", "amazon"
     freeswitch-xml-curl
     freeswitch-custom-sounds
     freeswitch-custom-music
+    freeswitch-sounds-en-us-callie-8000
+    freeswitch-sounds-music-8000
     }.each do |pkg|
       yum_package "#{pkg}" do
         action :upgrade
       end
     end
-  
-  package "freeswitch-sounds-en-us-callie-8000" do
-    action :upgrade
-  end
-
-  package "freeswitch-sounds-music-8000" do
-    action :upgrade
-  end
 
   script "change ownership of freeswitch dirs" do
     interpreter "bash"
@@ -178,16 +157,6 @@ when "centos", "redhat", "fedora", "amazon"
     group "root"
     mode 0755
   end
-
-  #if node.has_key("client_id")
-  #  http_request "Finished FreeSWITCH install" do
-  #    action :post
-  #    url "http://apps.2600hz.com:8000/v1/accounts/#{node[:client_id]}/servers/#{node[:server_id]}/deployment"
-  #    message :data => "{ \"name\" : \"freeswitch\", \"status\" : \"finished\", \"current_phase\" : \"3\", \"total_phases\" : \"3\" }"
-  #    ignore_failure true
-  #  end
-  #end
-
 end
 
 service "freeswitch" do
@@ -225,7 +194,6 @@ git "/etc/freeswitch" do
     reference "master"
   end
   action :sync
-#  notifies :reload, resources(:service => "freeswitch")
 end
 
 template "/etc/freeswitch/autoload_configs/.erlang.cookie" do
@@ -241,7 +209,6 @@ template "/etc/freeswitch/autoload_configs/erlang_event.conf.xml" do
   owner "freeswitch"
   group "daemon"
   mode "0644"
-#  notifies :reload, resources(:service => "freeswitch")
 end
 
 template "/etc/security/limits.d/freeswitch.limits.conf" do
@@ -249,7 +216,6 @@ template "/etc/security/limits.d/freeswitch.limits.conf" do
   owner  "root"
   group  "root"
   mode   "0644"
-#  notifies :reload, resources(:service => "freeswitch")
 end
 
 template "/etc/freeswitch/autoload_configs/acl.conf.xml" do
@@ -258,7 +224,6 @@ template "/etc/freeswitch/autoload_configs/acl.conf.xml" do
   group "daemon"
   mode "0644"
   variables :opensips => opensips
-  #notifies :reload, resources(:service => "freeswitch")
 end
 
 template "/etc/bluepill/freeswitch.pill" do
@@ -290,14 +255,4 @@ script "change ownership of freeswitch dirs" do
 
 bluepill_service "freeswitch" do
   action [:load]
-end
-
-script "import local media" do
-  interpreter "bash"
-  user "root"
-  cwd "/tmp"
-  code <<-EOH
-    /bin/cp -a /tmp/local_media/* /opt/freeswitch/sounds/en/us/callie/
-  EOH
-  only_if { File.directory?("/tmp/local_media") }
 end
