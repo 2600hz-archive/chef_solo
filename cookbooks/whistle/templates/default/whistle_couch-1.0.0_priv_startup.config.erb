@@ -1,8 +1,8 @@
 {default_couch_host,"localhost",5984,[],[]}.
 <% if node.has_key?("whistle_couch_proxy") %>
   {couch_host, {"<%= node[:whistle_couch_proxy] %>",<%= node[:haproxy][:proxy_port] %>,"<%= node[:couchdb_username] %>","<%= node[:couchdb_plaintext_password] %>",<%= node[:haproxy][:admin_proxy_port] %>}}.
-  {bigcouch_cookie, '<%= node[:bigcouch][:erlang][:cookie] %>' }.
+  {bigcouch_cookie, '<%= node['erlang_cookie'] %>' }.
 <% else %>
   {couch_host, {"<%= node[:ipaddress] %>",<%= node[:haproxy][:proxy_port] %>,"<%= node[:couchdb_username] %>","<%= node[:couchdb_plaintext_password] %>",<%= node[:haproxy][:admin_proxy_port] %>}}.
-  {bigcouch_cookie, '<%= node[:bigcouch][:erlang][:cookie] %>' }.
+  {bigcouch_cookie, '<%= node['erlang_cookie'] %>' }.
 <% end %>
