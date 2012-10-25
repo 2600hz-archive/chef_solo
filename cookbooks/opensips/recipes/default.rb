@@ -21,28 +21,18 @@
 case node[:platform]
 when "centos", "redhat", "fedora", "amazon"
   packages = %w[ opensips ]
-
   packages.each do |pkg|
     package pkg do
       action :install
-      version "1.6.4-8.el6"
+      if node['platform_version'].to_i >= 6
+        version "1.6.4-8.el6"
+      else
+        version "1.6.4-8.el5"
+      end
       options "--disablerepo=epel"
     end
   end
-  
 end
-
-#if node.has_key("client_id")
-#  hosts = data_bag_item(:clients, "#{node[:client_id]}")
-#  hosts['freeswitch']['servers'].each do |name, ip|
-#    noah_block "wait for node #{name}" do
-#      path "http://64.5.99.164:5678/ephemerals/freeswitch/#{node[:client_id]}/#{name}"
-#      timeout 1200
-#      retry_interval 5
-#      on_failure :retry
-#    end
-#  end
-#end
 
 nodes = data_bag_item('accounts', "#{node[:client_id]}")
 
