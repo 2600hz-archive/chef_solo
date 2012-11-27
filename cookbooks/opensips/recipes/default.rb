@@ -42,6 +42,7 @@ service "opensips" do
 end
 
 service "opensips-dispatcher" do
+  service_name "opensips"
   supports :reload => true
   reload_command "/etc/opensips/dispatcher.sh -r"
   action :nothing
