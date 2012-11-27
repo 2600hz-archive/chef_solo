@@ -97,6 +97,7 @@ when "centos", "redhat", "fedora", "amazon"
     freeswitch-endpoint-skinny
     freeswitch-endpoint-skypopen
     freeswitch-event-erlang-event
+    freeswitch-event-kazoo
     freeswitch-event-json-cdr
     freeswitch-event-multicast
     freeswitch-event-snmp
@@ -206,6 +207,13 @@ end
 
 template "/etc/freeswitch/autoload_configs/erlang_event.conf.xml" do
   source "erlang_event.conf.xml.erb"
+  owner "freeswitch"
+  group "daemon"
+  mode "0644"
+end
+
+template "/etc/freeswitch/autoload_configs/kazoo.conf.xml" do
+  source "kazoo.conf.xml.erb"
   owner "freeswitch"
   group "daemon"
   mode "0644"
