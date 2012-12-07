@@ -2,7 +2,7 @@
 # Cookbook Name:: logrotate
 # Recipe:: opensip
 #
-# Copyright 2011, 2600hz, Inc.
+# Copyright 2012, 2600hz, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,20 @@
 
 include_recipe "logrotate"
 
-logrotate_app "opensips" do
-  paths "/var/log/opensips.log"
-  rotate 4
+template "/etc/cron.hourly/opensips" do
+  source "cron.hourly.opensips.erb"
+  mode "0755"
+  owner "root"
+  group "root"
+end
+
+template "/etc/opensips/opensips.logrotate.conf" do
+	source "opensips.logrotate.conf.erb"
+	mode "0444"
+	owner "root"
+	group "root"
+end
+
+execute "rm -f /etc/logrotate.d/opensips" do
+	only_if "test -f /etc/logrotate.d/opensips"
 end
