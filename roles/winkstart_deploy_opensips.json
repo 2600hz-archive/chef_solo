@@ -20,8 +20,8 @@
   "run_list": [
     "role[deploy_base]",
     "recipe[rsyslog::whistle]",
-    "recipe[logrotate::opensip]",
-    "recipe[opensips]"
+    "recipe[opensips]",
+    "recipe[logrotate::opensip]"
   ],
   "description": "Winkstart deployment role for opensips",
   "chef_type": "role",
