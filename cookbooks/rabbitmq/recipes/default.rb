@@ -79,14 +79,14 @@ when "redhat", "centos", "scientific","amazon"
     mode 0400
   end
 
-  template "/usr/lib/rabbitmq/lib/rabbitmq_server-2.8.4/sbin/rabbitmqctl" do
+  template "/usr/lib/rabbitmq/lib/rabbitmq_server-2.8.7/sbin/rabbitmqctl" do
     source "rabbitmqctl.erb"
     owner "root"
     group "root"
     mode 0755
   end
 
-  template "/usr/lib/rabbitmq/lib/rabbitmq_server-2.8.4/sbin/rabbitmq-server" do
+  template "/usr/lib/rabbitmq/lib/rabbitmq_server-2.8.7/sbin/rabbitmq-server" do
     source "rabbitmq-server.erb"
     owner "root"
     group "root"
