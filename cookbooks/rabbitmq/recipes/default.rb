@@ -60,11 +60,6 @@ when "redhat", "centos", "scientific","amazon"
   end
 
   package "rabbitmq-server" do
-    action :remove
-    not_if "rpm -qa | grep rabbitmq-server-2.8"
-  end
-
-  package "rabbitmq-server" do
     action :upgrade
   end
 
