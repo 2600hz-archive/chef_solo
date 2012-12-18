@@ -32,6 +32,11 @@ baseurl=http://rpm.2600hz.com/$releasever/$basearch
 enabled=1
 gpgcheck=0
 <% end %>
+[2600hz_packages]
+name=Centos - $releasever - 2600hz Custom Repository
+baseurl=http://packages.2600hz.com/rpm/$releasever/$basearch
+enabled=1
+gpgcheck=0
 
 
 <% if node.chef_environment == "qa" %>
