@@ -117,6 +117,7 @@ when "centos", "redhat", "fedora", "amazon"
     }.each do |pkg|
       yum_package "#{pkg}" do
         action :upgrade
+        version "#{node[:freeswitch_version]}"
       end
     end
 
