@@ -22,6 +22,7 @@ end
 yum_package "kazoo" do
   action :upgrade
   flush_cache [ :before ]
+  version "#{node[:kazoo_version]}"
   notifies :restart, resources(:bluepill_service => "whapps")
   notifies :restart, resources(:bluepill_service => "ecallmgr")
 end
