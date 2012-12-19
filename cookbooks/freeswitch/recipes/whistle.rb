@@ -11,7 +11,7 @@ opensips = data_bag('accounts')
 
 packages = value_for_platform(
 	[ "centos", "redhat", "fedora", "suse", "amazon" ] => {
-	  "default" => %w(curl unzip mysql-server ncurses-devel ncurses-devel e2fsprogs-libs glibc libgcrypt openssl openssl-devel zlib zlib-devel libgcc libogg libogg-devel libidn libstdc++ libjpeg postgresql-libs gnutls gnutls-devel expat-devel libtiff libtiff-devel libtheora libtheora-devel alsa-lib alsa-lib-devel unixODBC unixODBC-devel libvorbis libvorbis-devel)
+	  "default" => %w(curl unzip mysql-server ncurses-devel ncurses-devel e2fsprogs-libs glibc libgcrypt openssl openssl-devel zlib zlib-devel libgcc libogg libogg-devel libidn libstdc++ libjpeg postgresql-libs gnutls gnutls-devel expat-devel libtiff libtiff-devel libtheora libtheora-devel alsa-lib alsa-lib-devel unixODBC unixODBC-devel libvorbis libvorbis-devel flite)
 	},
 	[ "ubuntu", "debian"] => {
 	  "default" => %w( libasound2  libogg0 libvorbis0a autoconf libncurses5-dev debconf-utils vim unixODBC strace unixODBC-dev libtiff4 libtiff4-dev libtool)
@@ -74,6 +74,7 @@ when "centos", "redhat", "fedora", "amazon"
     freeswitch-application-spy
     freeswitch-application-stress
     freeswitch-application-valet_parking
+    freeswitch-asrtts-flite
     freeswitch-codec-bv
     freeswitch-codec-celt
     freeswitch-codec-codec2
