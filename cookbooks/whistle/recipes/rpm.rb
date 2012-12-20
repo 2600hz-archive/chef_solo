@@ -75,7 +75,7 @@ template "#{node[:kazoo][:kazoo_apps_dir]}/priv/startup.config" do
   mode "0644"
 end
 
-template "#{node[:kazoo][:homedir]}/lib/whistle_couch-1.0.0/priv/startup.config" do
+template "#{node[:kazoo][:homedir]}/whistle_apps/lib/whistle_couch-1.0.0/priv/startup.config" do
   source "whistle_couch-1.0.0_priv_startup.config.erb"
   owner "kazoo"
   group "kazoo"
