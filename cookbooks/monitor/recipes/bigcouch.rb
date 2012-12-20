@@ -2,7 +2,7 @@
 # Cookbook Name:: monitor
 # Recipe:: bigcouch
 #
-# Copyright 2012, Sean Porter Consulting
+# Copyright 2012, Stephen Lum
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
