@@ -24,5 +24,5 @@ sensu_gem "carrier-pigeon"
 sensu_handler "irc" do
   type "pipe"
   command "irc.rb"
-  additional(:irc_server => "irc://sensubot:password@irc.freenode.net:6667#switchfreedom-qa")
+  additional(:irc_server => "#{node[:irc_url]}", :irc_password => "#{node[:irc_password]}")
 end
