@@ -21,13 +21,6 @@ include_recipe "monitor::default"
 
 sensu_gem "carrier-pigeon"
 
-template "/etc/sensu/conf.d/irc.json" do
-	source "irc.json.erb"
-	owner "sensu"
-	group "sensu"
-	mode 0644
-end
-
 sensu_handler "irc" do
   type "pipe"
   command "irc.rb"
