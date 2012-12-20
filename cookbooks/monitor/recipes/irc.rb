@@ -19,7 +19,7 @@
 
 include_recipe "monitor::default"
 
-sensu_gem "redis"
+sensu_gem "carrier-pigeon"
 
 template "/etc/sensu/conf.d/irc.json" do
 	source "irc.json.erb"
