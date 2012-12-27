@@ -7,7 +7,7 @@ default.sensu.use_ssl = true
 default.sensu.use_embedded_ruby = false
 
 # rabbitmq
-default.sensu.rabbitmq.host = "50.56.194.193"
+default.sensu.rabbitmq.host = "localhost"
 default.sensu.rabbitmq.port = 5671
 default.sensu.rabbitmq.ssl = Mash.new
 default.sensu.rabbitmq.vhost = "/sensu"
@@ -15,11 +15,11 @@ default.sensu.rabbitmq.user = "sensu"
 default.sensu.rabbitmq.password = "password"
 
 # redis
-default.sensu.redis.host = "50.56.194.193"
+default.sensu.redis.host = "localhost"
 default.sensu.redis.port = 6379
 
 # api
-default.sensu.api.host = "50.56.194.193"
+default.sensu.api.host = "localhost"
 default.sensu.api.port = 4567
 
 # dashboard
