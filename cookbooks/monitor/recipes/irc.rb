@@ -24,5 +24,8 @@ sensu_gem "carrier-pigeon"
 sensu_handler "irc" do
   type "pipe"
   command "irc.rb"
-  additional(:irc_server => "#{node[:irc_url]}", :irc_password => "#{node[:irc_password]}")
+end
+
+sensu_snippet "irc" do
+  content({:irc_server => "#{node[:irc_url]}", :irc_password => "#{node[:irc_password]}"})
 end
