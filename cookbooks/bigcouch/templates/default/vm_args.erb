@@ -2,7 +2,11 @@
 # (specified using -sname) or it can by fully qualified (-name).  There can be
 # no communication between nodes running with the -sname flag and those running 
 # with the -name flag.
--name bigcouch@<%= node[:fqdn] %>
+<% if node.has_key?("bigcouch_hostname") %>
+-name bigcouch@<%= node['bigcouch_hostname'] %>
+<% else %>
+-name bigcouch@<%= node['fqdn'] %>
+<% end %>
 
 # All nodes must share the same magic cookie for distributed Erlang to work.
 # Comment out this line if you synchronized the cookies by other means (using
