@@ -21,8 +21,8 @@
     "role[deploy_base]",
     "recipe[logrotate::trunkstore]",
     "recipe[rsyslog]",
-    "recipe[rabbitmq]",
     "recipe[erlang]",
+    "recipe[rabbitmq]",
     "recipe[whistle::rpm]"
   ],
   "description": "whistle apps role",
