@@ -59,8 +59,8 @@ when "redhat", "centos", "scientific","amazon"
     end
   end
 
-  package "rabbitmq-server" do
-    action :upgrade
+  execute "rpm -ivh --nodeps http://www.rabbitmq.com/releases/rabbitmq-server/v2.8.7/rabbitmq-server-2.8.7-1.noarch.rpm" do
+    action :run
   end
 
   service "rabbitmq-server" do
