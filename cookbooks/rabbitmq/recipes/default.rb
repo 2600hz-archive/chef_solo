@@ -61,6 +61,7 @@ when "redhat", "centos", "scientific","amazon"
 
   execute "rpm -ivh --nodeps http://www.rabbitmq.com/releases/rabbitmq-server/v2.8.7/rabbitmq-server-2.8.7-1.noarch.rpm" do
     action :run
+    not_if "rpm -qa | grep rabbitmq-server-2.8.7"
   end
 
   service "rabbitmq-server" do
