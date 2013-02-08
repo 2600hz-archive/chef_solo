@@ -19,12 +19,12 @@
 
 yum_repository "2600hz_custom" do
   description "2600hz Custom Repo"
-  mirrorlist node['yum']['2600hz_custom']['url']
+  url node['yum']['2600hz_custom']['url']
   action platform?('amazon') ? [:add, :update] : :add
 end
 
 yum_repository "2600hz_packages" do
   description "2600hz Packages Repo"
-  mirrorlist node['yum']['2600hz_packages']['url']
+  url node['yum']['2600hz_packages']['url']
   action platform?('amazon') ? [:add, :update] : :add
 end
