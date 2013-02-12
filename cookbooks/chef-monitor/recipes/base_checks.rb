@@ -22,6 +22,7 @@ include_recipe "chef-monitor::default"
 %w[
 	check-disk.rb
 	check-mem.sh
+	load-metrics.rb
 ].each do |check|
 	cookbook_file "/etc/sensu/plugins/#{check}" do
   	source "plugins/#{check}"
@@ -38,6 +39,13 @@ end
 
 sensu_check "check_mem" do
   command "check-mem.sh"
+  handlers ["default"]
+  subscribers ["all"]
+  interval 30
+end
+
+sensu_check "load_metrics" do
+  command "load-metrics.rb"
   handlers ["default"]
   subscribers ["all"]
   interval 30
