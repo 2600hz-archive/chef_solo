@@ -20,6 +20,7 @@
 include_recipe "chef-monitor::default"
 
 %w[
+	check-banner.rb
 	check-disk.rb
 	check-mem.sh
 	load-metrics.rb
@@ -46,6 +47,13 @@ end
 
 sensu_check "load_metrics" do
   command "load-metrics.rb"
+  handlers ["default"]
+  subscribers ["all"]
+  interval 30
+end
+
+sensu_check "check_ssh" do
+  command "check-banner.rb -p 22223"
   handlers ["default"]
   subscribers ["all"]
   interval 30
