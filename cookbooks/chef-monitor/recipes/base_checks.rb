@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: chef-monitor
-# Recipe:: check_disk
+# Recipe:: base_checks
 #
 # Copyright 2013, Stephen Lum
 #
@@ -19,13 +19,25 @@
 
 include_recipe "chef-monitor::default"
 
-cookbook_file "/etc/sensu/plugins/check-disk.rb" do
-  source "plugins/check-disk.rb"
-  mode 0755
+%w[
+	check-disk.rb
+	check-mem.sh
+].each do |check|
+	cookbook_file "/etc/sensu/plugins/#{check}" do
+  	source "plugins/#{check}"
+  	mode 0755
+	end
 end
 
 sensu_check "check_disk" do
   command "check-disk.rb"
+  handlers ["default"]
+  subscribers ["all"]
+  interval 30
+end
+
+sensu_check "check_mem" do
+  command "check-mem.sh"
   handlers ["default"]
   subscribers ["all"]
   interval 30
