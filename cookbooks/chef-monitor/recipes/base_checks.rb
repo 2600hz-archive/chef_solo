@@ -61,7 +61,7 @@ sensu_check "check_ssh" do
 end
 
 sensu_check "metrics-netstat-tcp" do
-  command "metrics-netstat-tcp.rb -p 22223"
+  command "metrics-netstat-tcp.rb"
   handlers ["default"]
   subscribers ["all"]
   interval 30
