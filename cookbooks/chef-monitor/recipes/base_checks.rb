@@ -25,6 +25,7 @@ include_recipe "chef-monitor::default"
 	check-mem.sh
 	load-metrics.rb
 	metrics-netstat-tcp.rb
+  metrics-net-packets.rb
 ].each do |check|
 	cookbook_file "/etc/sensu/plugins/#{check}" do
   	source "plugins/#{check}"
@@ -62,6 +63,13 @@ end
 
 sensu_check "metrics-netstat-tcp" do
   command "metrics-netstat-tcp.rb"
+  handlers ["default"]
+  subscribers ["all"]
+  interval 30
+end
+
+sensu_check "metrics-net-packets" do
+  command "metrics-net-packets.rb"
   handlers ["default"]
   subscribers ["all"]
   interval 30
