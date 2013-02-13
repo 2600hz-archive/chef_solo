@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: monitor
+# Cookbook Name:: chef-monitor
 # Recipe:: rabbitmq
 #
 # Copyright 2013, Sean Porter Consulting
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "monitor::_rabbitmq"
+include_recipe "chef-monitor::_rabbitmq"
 
 sensu_check "rabbitmq_overview_metrics" do
   command "rabbitmq-overview-metrics.rb"

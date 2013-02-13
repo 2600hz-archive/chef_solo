@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: monitor
+# Cookbook Name:: chef-monitor
 # Recipe:: _rabbitmq
 #
 # Copyright 2013, Sean Porter Consulting
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "monitor::default"
+include_recipe "chef-monitor::default"
 
 sensu_gem "carrot-top"
 
