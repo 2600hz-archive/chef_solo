@@ -19,9 +19,41 @@
 
 include_recipe "chef-monitor::_rabbitmq"
 
+%w[
+	rabbitmq-queue-metrics.rb
+	rabbitmq-alive.rb
+	check-rabbitmq-messages.rb
+].each do |check|
+	cookbook_file "/etc/sensu/plugins/#{check}" do
+  	source "plugins/#{check}"
+  	mode 0755
+	end
+end
+
 sensu_check "rabbitmq_overview_metrics" do
   command "rabbitmq-overview-metrics.rb"
   handlers ["metrics"]
   standalone true
-  interval 30
+  interval 60
+end
+
+sensu_check "rabbitmq-queue-metrics" do
+  command "rabbitmq-queue-metrics.rb"
+  handlers ["metrics"]
+  standalone true
+  interval 60
+end
+
+sensu_check "rabbitmq-alive" do
+  command "rabbitmq-alive.rb"
+  handlers ["metrics"]
+  standalone true
+  interval 60
+end
+
+sensu_check "check-rabbitmq-messages" do
+  command "check-rabbitmq-messages.rb"
+  handlers ["metrics"]
+  standalone true
+  interval 60
 end
