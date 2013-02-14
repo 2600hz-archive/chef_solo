@@ -19,6 +19,8 @@
 
 include_recipe "chef-monitor::_rabbitmq"
 
+sensu_gem "rest-client"
+
 %w[
 	rabbitmq-queue-metrics.rb
 	rabbitmq-alive.rb
