@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: rabbitmq
-# Resource:: user
+# Recipe:: mgmt_console
 #
-# Copyright 2011, Opscode, Inc.
+# Copyright 2012, Tacit Knowledge, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +17,13 @@
 # limitations under the License.
 #
 
-actions :add, :delete, :set_permissions, :clear_permissions, :set_user_tags
+include_recipe "rabbitmq::default"
 
-attribute :user, :kind_of => String, :name_attribute => true
-attribute :password, :kind_of => String
-attribute :vhost, :kind_of => String
-attribute :permissions, :kind_of => String
-attribute :user_tag, :kind_of => String
+plugins = %w( rabbitmq_management rabbitmq_management_visualiser )
 
-def initialize(*args)
-  super
-  @action = :add
+plugins.each do |plugin|
+  rabbitmq_plugin plugin do
+    action :enable
+    notifies :restart, resources(:service => node['rabbitmq']['service_name'])
+  end
 end

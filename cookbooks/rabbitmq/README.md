@@ -6,15 +6,15 @@ Recipes
 =======
 default
 -------
-Installs `rabbitmq-server` from RabbitMQ.com's APT repository or the RPM directly (there is no yum repo). The distribution-provided versions were quite old and newer features were needed.
+Installs `rabbitmq-server` from RabbitMQ.com's APT repository, your distro's version, or the DEB or RPM directly (there is no yum repo). Depending on your distribution, the provided version may be quite old so they are disabled by default. If you want to use the distro version, set the attribute `['rabbitmq']['use_distro_version']` to `true`.
 
-cluster
--------
-Configures nodes to be members of a RabbitMQ cluster, but does not actually join them.
+Cluster recipe is now combined with default. Recipe will now auto-cluster. Set the :cluster attribute to true, :cluster_disk_nodes array of `node@host` strings that describe which you want to be disk nodes and then set an alphanumeric string for the :erlang_cookie.
+
+To enable SSL turn :ssl to true and set the paths to your cacert, cert and key files.
 
 Resources/Providers
 ===================
-There are 2 LWRPs for interacting with RabbitMQ.
+There are 3 LWRPs for interacting with RabbitMQ.
 
 user
 ----
@@ -57,21 +57,40 @@ rabbitmq_vhost "/nova" do
 end
 ```
 
+plugin
+-----
+Enables or disables a rabbitmq plugin.
+
+- `:enable` enables a `plugin`
+- `:disable` disables a `plugin`
+
+### Example
+``` ruby
+rabbitmq_plugin "rabbitmq_stomp" do
+  action :enable
+end
+
+rabbitmq_plugin "rabbitmq_shovel" do
+  action :disable
+end
+```
+
 Limitations
 ===========
-It is quite useful as is, but clustering configuration does not currently do the dance to join the cluster members to each other.
+For an already running cluster, these actions still require manual intervention:
+- changing the :erlang_cookie
+- turning :cluster from true to false
 
 The rabbitmq::chef recipe was only used for the chef-server cookbook and has been moved to chef-server::rabbitmq.
 
 License and Author
 ==================
+
 Author:: Benjamin Black <b@b3k.us>
-
 Author:: Daniel DeLeo <dan@kallistec.com>
-
 Author:: Matt Ray <matt@opscode.com>
 
-Copyright:: 2009-2011 Opscode, Inc
+Copyright:: 2009-2012 Opscode, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

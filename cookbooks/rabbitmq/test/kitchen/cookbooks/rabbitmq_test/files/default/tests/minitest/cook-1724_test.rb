@@ -1,8 +1,5 @@
 #
-# Cookbook Name:: rabbitmq
-# Resource:: user
-#
-# Copyright 2011, Opscode, Inc.
+# Copyright 2012, Opscode, Inc. <legal@opscode.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +14,18 @@
 # limitations under the License.
 #
 
-actions :add, :delete, :set_permissions, :clear_permissions, :set_user_tags
+describe "rabbitmq_test::cook-1724" do
+  include MiniTest::Chef::Assertions
+  include MiniTest::Chef::Context
+  include MiniTest::Chef::Resources
 
-attribute :user, :kind_of => String, :name_attribute => true
-attribute :password, :kind_of => String
-attribute :vhost, :kind_of => String
-attribute :permissions, :kind_of => String
-attribute :user_tag, :kind_of => String
+  it 'doesnt use the rabbitmq apt repository' do
+    unless node['platform_family'] == 'debian'
+      skip "Only applicable on Debian family"
+    end
 
-def initialize(*args)
-  super
-  @action = :add
+    file("/etc/apt/sources.list.d/rabbitmq-source.list").wont_exist &&
+      package("rabbitmq-server").must_be_installed
+  end
+
 end

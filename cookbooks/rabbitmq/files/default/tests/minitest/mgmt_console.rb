@@ -1,8 +1,5 @@
 #
-# Cookbook Name:: rabbitmq
-# Resource:: user
-#
-# Copyright 2011, Opscode, Inc.
+# Copyright 2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +14,17 @@
 # limitations under the License.
 #
 
-actions :add, :delete, :set_permissions, :clear_permissions, :set_user_tags
+require File.expand_path('../support/helpers', __FILE__)
 
-attribute :user, :kind_of => String, :name_attribute => true
-attribute :password, :kind_of => String
-attribute :vhost, :kind_of => String
-attribute :permissions, :kind_of => String
-attribute :user_tag, :kind_of => String
+describe "rabbitmq::mgmt_console" do
+  include Helpers::RabbitMQ
 
-def initialize(*args)
-  super
-  @action = :add
+  it 'enables the rabbitmq_management plugin' do
+    assert(plugin_enabled?("rabbitmq_management"))
+  end
+
+  it 'enables the rabbitmq_management_visualiser plugin' do
+    assert(plugin_enabled?("rabbitmq_management_visualiser"))
+  end
+
 end

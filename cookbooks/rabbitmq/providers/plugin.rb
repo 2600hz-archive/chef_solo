@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: rabbitmq
-# Provider:: vhost
+# Provider:: plugin
 #
-# Copyright 2011, Opscode, Inc.
+# Copyright 2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,32 +17,29 @@
 # limitations under the License.
 #
 
-def vhost_exists?(name)
-  cmd = Mixlib::ShellOut.new("rabbitmqctl list_vhosts |grep '#{name}\\b'")
+def plugin_enabled?(name)
+  cmd = Mixlib::ShellOut.new("rabbitmq-plugins list -e '#{name}\\b'")
   cmd.environment['HOME'] = ENV.fetch('HOME', '/root')
   cmd.run_command
-  begin
-    cmd.error!
-    true
-  rescue
-    false
-  end
+  cmd.error!
+  cmd.stdout =~ /\b#{name}\b/
 end
 
-action :add do
-  unless vhost_exists?(new_resource.vhost)
-    execute "rabbitmqctl add_vhost #{new_resource.vhost}" do
-      Chef::Log.info "Adding RabbitMQ vhost '#{new_resource.vhost}'."
+action :enable do
+  unless plugin_enabled?(new_resource.plugin)
+    execute "rabbitmq-plugins enable #{new_resource.plugin}" do
+      Chef::Log.info "Enabling RabbitMQ plugin '#{new_resource.plugin}'."
       new_resource.updated_by_last_action(true)
     end
   end
 end
 
-action :delete do
-  if vhost.exists?(new_resource.vhost)
-    execute "rabbitmqctl delete_vhost #{new_resource.vhost}" do
-      Chef::Log.info "Deleting RabbitMQ vhost '#{new_resource.vhost}'."
+action :disable do
+  if plugin_enabled?(new_resource.plugin)
+    execute "rabbitmq-plugins disable #{new_resource.plugin}" do
+      Chef::Log.info "Disabling RabbitMQ plugin '#{new_resource.plugin}'."
       new_resource.updated_by_last_action(true)
     end
   end
 end
+

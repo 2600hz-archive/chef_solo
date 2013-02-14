@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: rabbitmq
-# Resource:: user
+# Cookbook Name:: rabbitmq_test
+# Recipe:: default
 #
-# Copyright 2011, Opscode, Inc.
+# Copyright 2012, Opscode, Inc. <legal@opscode.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +17,9 @@
 # limitations under the License.
 #
 
-actions :add, :delete, :set_permissions, :clear_permissions, :set_user_tags
+node.set['rabbitmq']['use_apt'] = true
+node.set['rabbitmq']['use_distro_version'] = true
 
-attribute :user, :kind_of => String, :name_attribute => true
-attribute :password, :kind_of => String
-attribute :vhost, :kind_of => String
-attribute :permissions, :kind_of => String
-attribute :user_tag, :kind_of => String
+log "#{cookbook_name}::#{recipe_name} tests that COOK-1724 is implemented."
 
-def initialize(*args)
-  super
-  @action = :add
-end
+include_recipe "rabbitmq::default"
