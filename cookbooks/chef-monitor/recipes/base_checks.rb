@@ -55,7 +55,7 @@ sensu_check "load_metrics" do
 end
 
 sensu_check "check_ssh" do
-  command "check-banner.rb -p 22223"
+  command "check-banner.rb -p #{node['ssh_port'] || 22}"
   handlers ["default"]
   subscribers ["all"]
   interval 30
