@@ -13,7 +13,7 @@ depends "apt"
 depends "yum"
 
 # available @ http://community.opscode.com/cookbooks/windows
-depends "windows"
+#depends "windows"
 
 # available @ http://community.opscode.com/cookbooks/rabbitmq
 depends "rabbitmq"
