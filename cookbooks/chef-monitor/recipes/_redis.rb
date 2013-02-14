@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "monitor::default"
+include_recipe "chef-monitor::default"
 
 sensu_gem "redis"
 

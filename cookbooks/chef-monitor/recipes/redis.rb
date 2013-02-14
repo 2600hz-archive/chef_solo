@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "monitor::_redis"
+include_recipe "chef-monitor::_redis"
 
 sensu_check "redis_process" do
   command "check-procs.rb -p redis-server -C 1"
