@@ -34,7 +34,7 @@ end
 
 sensu_check "rabbitmq_overview_metrics" do
   command "rabbitmq-overview-metrics.rb --scheme stats.:::name:::"
-  handlers ["metrics"]
+  handlers ["graphite"]
   standalone true
   interval 60
   type "metric"
