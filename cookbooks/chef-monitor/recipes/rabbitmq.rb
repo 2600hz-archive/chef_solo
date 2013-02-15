@@ -37,6 +37,7 @@ sensu_check "rabbitmq_overview_metrics" do
   handlers ["metrics"]
   standalone true
   interval 60
+  type "metric"
 end
 
 sensu_check "rabbitmq-queue-metrics" do
