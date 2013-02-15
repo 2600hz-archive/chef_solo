@@ -24,7 +24,7 @@ sensu_check "check_ecallmgr_process" do
   command "check-procs.rb -p '-name ecallmgr'"
   handlers ["default"]
   subscribers ["kazoo"]
-  interval 30
+  interval 60
   additional(:notification => "eCallManager is not running")
 end
 
@@ -32,6 +32,14 @@ sensu_check "check_whistle_apps_process" do
   command "check-procs.rb -p '-name whistle_apps'"
   handlers ["default"]
   subscribers ["kazoo"]
-  interval 30
+  interval 60
   additional(:notification => "Whistle Apps is not running")
+end
+
+sensu_check "check_crossbar_8000" do
+  command "check-http.rb -p 8000 -u http://localhost:8000/ -q 'Howdy'"
+  handlers ["default"]
+  subscribers ["kazoo"]
+  interval 60
+  additional(:notification => "Crossbar is not running")
 end
