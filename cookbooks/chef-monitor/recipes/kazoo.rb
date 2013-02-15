@@ -21,7 +21,7 @@ include_recipe "chef-monitor::default"
 include_recipe "chef-monitor::rabbitmq"
 
 sensu_check "check_ecallmgr_process" do
-  command "check-procs.rb -p '-name ecallmgr'"
+  command "check-procs.rb -p '-name ecallmgr' -C 1 -w 1"
   handlers ["default"]
   subscribers ["kazoo"]
   interval 60
@@ -29,7 +29,7 @@ sensu_check "check_ecallmgr_process" do
 end
 
 sensu_check "check_whistle_apps_process" do
-  command "check-procs.rb -p '-name whistle_apps'"
+  command "check-procs.rb -p '-name whistle_apps' -C 1 -w 1"
   handlers ["default"]
   subscribers ["kazoo"]
   interval 60
