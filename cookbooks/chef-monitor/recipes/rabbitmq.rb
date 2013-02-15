@@ -33,14 +33,14 @@ sensu_gem "rest-client"
 end
 
 sensu_check "rabbitmq_overview_metrics" do
-  command "rabbitmq-overview-metrics.rb"
+  command "rabbitmq-overview-metrics.rb --scheme stats.:::name:::"
   handlers ["metrics"]
   standalone true
   interval 60
 end
 
 sensu_check "rabbitmq-queue-metrics" do
-  command "rabbitmq-queue-metrics.rb"
+  command "rabbitmq-queue-metrics.rb --scheme stats.:::name:::"
   handlers ["metrics"]
   standalone true
   interval 60
@@ -48,14 +48,14 @@ end
 
 sensu_check "rabbitmq-alive" do
   command "rabbitmq-alive.rb"
-  handlers ["metrics"]
+  handlers ["default"]
   standalone true
   interval 60
 end
 
 sensu_check "check-rabbitmq-messages" do
   command "check-rabbitmq-messages.rb"
-  handlers ["metrics"]
+  handlers ["default"]
   standalone true
   interval 60
 end

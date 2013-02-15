@@ -48,10 +48,11 @@ sensu_check "check_mem" do
 end
 
 sensu_check "load_metrics" do
-  command "load-metrics.rb"
-  handlers ["default"]
+  command "load-metrics.rb --scheme stats.:::name:::"
+  handlers ["graphite"]
   subscribers ["all"]
   interval 30
+  type "metric"
 end
 
 sensu_check "check_ssh" do
@@ -62,15 +63,17 @@ sensu_check "check_ssh" do
 end
 
 sensu_check "metrics-netstat-tcp" do
-  command "metrics-netstat-tcp.rb"
-  handlers ["default"]
+  command "metrics-netstat-tcp.rb --scheme stats.:::name:::"
+  handlers ["graphite"]
   subscribers ["all"]
   interval 30
+  type "metric"
 end
 
 sensu_check "metrics-net-packets" do
-  command "metrics-net-packets.rb"
-  handlers ["default"]
+  command "metrics-net-packets.rb --scheme stats.:::name:::"
+  handlers ["graphite"]
   subscribers ["all"]
   interval 30
+  type "metric"
 end
