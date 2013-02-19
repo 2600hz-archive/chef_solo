@@ -39,31 +39,31 @@ enabled=1
 gpgcheck=0
 
 
-<% if node.chef_environment == "qa" %>
+<% if node['chef_environment'] == "qa" %>
 [2600hz_private]
 name=Centos - $releasever - 2600hz Private Repository
 baseurl=http://private.2600hz.com/$releasever/$basearch/qa
 enabled=1
 gpgcheck=0
-<% elsif node.chef_environment == "staging" %>
+<% elsif node['chef_environment'] == "staging" %>
 [2600hz_private]
 name=Centos - $releasever - 2600hz Private Repository
 baseurl=http://private.2600hz.com/$releasever/$basearch/staging
 enabled=1
 gpgcheck=0
-<% elsif node.chef_environment == "development" %>
+<% elsif node.['chef_environment'] == "development" %>
 [2600hz_private]
 name=Centos - $releasever - 2600hz Private Repository
 baseurl=http://private.2600hz.com/$releasever/$basearch/dev
 enabled=1
 gpgcheck=0
-<% elsif node.chef_environment == "production" %>
+<% elsif node['chef_environment'] == "production" %>
 [2600hz_private]
 name=Centos - $releasever - 2600hz Private Repository
 baseurl=http://private.2600hz.com/$releasever/$basearch/prod
 enabled=1
 gpgcheck=0
-<% elsif node.chef_environment == "perf" %>
+<% elsif node['chef_environment'] == "perf" %>
 [2600hz_private]
 name=Centos - $releasever - 2600hz Private Repository
 baseurl=http://private.2600hz.com/$releasever/$basearch/qa
