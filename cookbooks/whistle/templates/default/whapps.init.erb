@@ -12,7 +12,7 @@ start() {
         if [ "x$USER" != "x$RUN_AS_USER" ]; then
           su - $RUN_AS_USER -c "$KAZOO_HOME/whistle_apps/start.sh"
         else
-          $KAZO_HOME/whistle_apps/start.sh
+          $KAZOO_HOME/whistle_apps/start.sh
         fi
         echo "done."
 }
