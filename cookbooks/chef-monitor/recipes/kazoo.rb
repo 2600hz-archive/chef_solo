@@ -20,6 +20,16 @@
 include_recipe "chef-monitor::default"
 include_recipe "chef-monitor::rabbitmq"
 
+%w[
+        check_whistle_auth.sh
+        check_whapps.rb
+].each do |check|
+        cookbook_file "/etc/sensu/plugins/#{check}" do
+        source "plugins/#{check}"
+        mode 0755
+        end
+end
+
 sensu_check "check_ecallmgr_process" do
   command "check-procs.rb -p '-name ecallmgr' -C 1 -w 1"
   handlers ["default"]
@@ -42,4 +52,20 @@ sensu_check "check_crossbar_8000" do
   subscribers ["kazoo"]
   interval 60
   additional(:notification => "Crossbar is not running")
+end
+
+sensu_check "check_whistle_auth" do
+  command "check_whistle_auth.sh"
+  handlers ["default"]
+  subscribers ["kazoo"]
+  interval 60
+  additional(:notification => "Whistle authentication is broken")
+end
+
+sensu_check "check_whapps" do
+  command "check_whapps.rb"
+  handlers ["default"]
+  subscribers ["kazoo"]
+  interval 60
+  additional(:notification => "Some Whapps are not running")
 end

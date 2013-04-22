@@ -23,6 +23,8 @@ include_recipe "chef-monitor::default"
 	check-banner.rb
 	check-disk.rb
 	check-mem.sh
+	check_uptime.sh
+	check_iptables.rb
 	load-metrics.rb
 	metrics-netstat-tcp.rb
   metrics-net-packets.rb
@@ -76,4 +78,20 @@ sensu_check "metrics-net-packets" do
   subscribers ["all"]
   interval 30
   type "metric"
+end
+
+sensu_check "check_uptime" do
+  command "check_uptime.sh"
+  handlers ["default"]
+  subscribers ["all"]
+  interval 60
+  additional(:notification => "Uptime check failed")
+end
+
+sensu_check "check_iptables" do
+  command "check_iptables.rb"
+  handlers ["default"]
+  subscribers ["all"]
+  interval 60
+  additional(:notification => "Iptables check failed")
 end
