@@ -21,13 +21,13 @@ include_recipe "chef-monitor::default"
 include_recipe "chef-monitor::rabbitmq"
 
 %w[
-        check_whistle_auth.sh
-        check_whapps.rb
+  check_whistle_auth.sh
+  check_whapps.rb
 ].each do |check|
-        cookbook_file "/etc/sensu/plugins/#{check}" do
-        source "plugins/#{check}"
-        mode 0755
-        end
+  cookbook_file "/etc/sensu/plugins/#{check}" do
+  source "plugins/#{check}"
+  mode 0755
+  end
 end
 
 sensu_check "check_ecallmgr_process" do
