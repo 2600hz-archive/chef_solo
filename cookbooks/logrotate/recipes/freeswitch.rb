@@ -21,7 +21,7 @@ include_recipe "logrotate"
 
 logrotate_app "freeswitch" do
   paths "/var/log/freeswitch/*.log"
-  rotate 20
+  rotate 120
   size "10M"
 end
 
