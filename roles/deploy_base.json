@@ -18,7 +18,6 @@
   },
   "run_list": [
     "recipe[yumrepo]",
-    "role[rvm]",
     "recipe[selinux]",
     "recipe[postfix]",
     "recipe[basics]",
@@ -28,7 +27,6 @@
     "recipe[basics::iptables_disable]",
     "recipe[logrotate::local0]",
     "recipe[logrotate::chef-client]",
-    "recipe[basics::startup]"
   ],
   "description": "Base Centos role for the winkstart deploy tool",
   "chef_type": "role",
