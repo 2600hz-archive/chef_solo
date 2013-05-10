@@ -26,7 +26,7 @@
     "recipe[ntp]",
     "recipe[basics::iptables_disable]",
     "recipe[logrotate::local0]",
-    "recipe[logrotate::chef-client]",
+    "recipe[logrotate::chef-client]"
   ],
   "description": "Base Centos role for the winkstart deploy tool",
   "chef_type": "role",
