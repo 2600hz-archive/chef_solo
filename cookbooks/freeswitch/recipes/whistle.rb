@@ -171,18 +171,27 @@ directory "/usr/share/freeswitch/http_cache" do
   mode "0755"
 end
 
-# If the default FS directory exists, with no .git file, delete it in preparation of whistle-fs
+# If the default FS directory exists (i.e. we are not using a symlink to /etc/kazoo/freeswitch) then trash it and replace it with a symlink
 directory "/etc/freeswitch/" do
-  not_if { ::FileTest.exists?("/etc/freeswitch/.git/config") }
+  not_if { ::FileTest.symlink?("/etc/freeswitch") }
   recursive true
   action :delete
 end
 
-git "/etc/freeswitch" do
-  destination "/etc/freeswitch"
-  repository "git://github.com/2600hz/kazoo-fs.git"
+git "/etc/kazoo" do
+  destination "/etc/kazoo"
+  repository "git://github.com/2600hz/kazoo_configs.git"
   action :sync
 end
+
+    
+link "/etc/freeswitch" do
+  to "/etc/kazoo/freeswitch"
+  owner "freeswitch"
+  group "daemon"
+  not_if { ::File.exists?("/etc/freeswitch") }
+end
+
 
 template "/etc/freeswitch/autoload_configs/kazoo.conf.xml" do
   source "kazoo.conf.xml.erb"
