@@ -16,14 +16,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-packages = value_for_platform(
-        [ "centos", "redhat", "fedora", "suse" ] => {
-          "default" => %w(unixODBC-devel tk)
-        },
-        [ "ubuntu", "debian"] => {
-          "default" => %w( unixODBC-dev)
-        }
-)
+#packages = value_for_platform(
+#        [ "centos", "redhat", "fedora", "suse" ] => {
+#          "default" => %w(unixODBC-devel tk)
+#        },
+#        [ "ubuntu", "debian"] => {
+#          "default" => %w( unixODBC-dev)
+#        }
+#)
 
 case node[:platform]
 when "debian", "ubuntu"
@@ -43,7 +43,7 @@ when "centos", "redhat", "fedora"
           arch "x86_64"
         end
   end
-  package "erlang"
+  package "esl-erlang"
 when "amazon"
-  package "erlang"
+  package "esl-erlang"
 end
