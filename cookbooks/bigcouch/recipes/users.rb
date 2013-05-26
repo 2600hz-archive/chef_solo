@@ -24,11 +24,12 @@ end
 user "bigcouch" do
   uid 400
   gid 400
+  system true
   shell "/bin/bash"
-  home "/home/bigcouch"
+  home "/opt/bigcouch"
 end
 
-template "/home/bigcouch/.erlang.cookie" do
+template "/opt/bigcouch/.erlang.cookie" do
   source "erlang_cookie.erb"
   mode 0400
   owner "bigcouch"

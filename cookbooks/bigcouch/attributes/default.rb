@@ -1,0 +1,12 @@
+default['bigcouch']['admin']['username'] = 'admin'
+default['bigcouch']['admin']['plaintext_password'] = 'intenseheavydutyadminactionplease'
+default['bigcouch']['kazoo']['username'] = 'kazoo'
+default['bigcouch']['kazoo']['plaintext_password'] = 'supermegaexcellenttelephonyplatform'
+default['bigcouch']['salt'] = '53e20840c5b911e28b8b0800200c9a66'
+default['bigcouch']['database_dir'] = '/srv/db'
+default['bigcouch']['view_index_dir'] = '/srv/view_index'
+default['bigcouch']['cluster']['q'] = 3
+default['bigcouch']['cluster']['r'] = 2
+default['bigcouch']['cluster']['w'] = 2
+default['bigcouch']['cluster']['n'] = 3
+default['bigcouch']['cluster']['z'] = 1

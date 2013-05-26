@@ -1,20 +1,21 @@
-; local customizations are stored here
-
 [admins]
-<%= node[:couchdb_username] %> = <%= node[:couchdb_plaintext_password] %>
+<%= node.bigcouch.admin.username %> = <%= node.bigcouch.admin.include?('hashed_password') ? node.bigcouch.admin.hashed_password : node.bigcouch.admin.plaintext_password %>
+<%= node.bigcouch.kazoo.username %> = <%= node.bigcouch.kazoo.include?('hashed_password') ? node.bigcouch.kazoo.hashed_password : node.bigcouch.kazoo.plaintext_password %>
 
 [couch_httpd_auth]
-secret = 73ca45417d75eaad90a127a723238b96
+secret = <%= node.bigcouch.salt %>
+require_valid_user = true
 
 [couchdb]
-database_dir = <%= @node[:bigcouch][:database_dir] %>
-view_index_dir = <%= @node[:bigcouch][:view_index_dir] %>
+database_dir = <%= node.bigcouch.database_dir %>
+view_index_dir = <%= node.bigcouch.view_index_dir %>
 
 [cluster]
-q=<%= @node['bigcouch']['cluster']['q'] %>
-r=<%= @node['bigcouch']['cluster']['r'] %>
-w=<%= @node['bigcouch']['cluster']['w'] %>
-n=<%= @node['bigcouch']['cluster']['n'] %>
+q=<%= node.bigcouch.cluster.q %>
+r=<%= node.bigcouch.cluster.r %>
+w=<%= node.bigcouch.cluster.w %>
+n=<%= node.bigcouch.cluster.n %>
+
 [chttpd]
 port = 5984
 backlog = 512
@@ -24,3 +25,6 @@ bind_address = 0.0.0.0
 [httpd]
 port = 5986
 bind_address = 0.0.0.0
+
+[log]
+file = /var/log/bigcouch.log
