@@ -21,16 +21,16 @@ case node[:platform]
 when "centos", "redhat", "fedora", "amazon"
   if node[:platform_version].to_i <= 5
     packages = %w[
-      git screen gdb strace ngrep vim-enhanced tcpdump vixie-cron dialog nc
+      git screen ngrep vim-enhanced tcpdump vixie-cron dialog nc
     ]
   else
     packages = %w[
-      git screen gdb strace vim-enhanced tcpdump dialog nc cronie
+      git screen vim-enhanced tcpdump dialog nc cronie
     ]
   end
 when "ubuntu", "debian"
   packages = %w[
-    htop git-core screen gdb strace vim ngrep
+    htop git-core screen vim ngrep
   ]
 end
 
