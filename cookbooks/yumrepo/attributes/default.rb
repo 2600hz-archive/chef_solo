@@ -32,6 +32,11 @@ default[:repo][:centos_base][:url] = "http://mirror.centos.org/centos/6/os/x86_6
 default[:repo][:centos_base][:enabled] = true
 default[:repo][:centos_base][:key] = "RPM-GPG-KEY-CentOS-6"
 
+# Erlang Solutions
+default[:repo][:erlang_solutions][:url] = "http://binaries.erlang_solutions.com/rpm/fedora/$releasever/$basearch"
+default[:repo][:erlang_solutions][:enabled] = true
+default[:repo][:erlang_solutions][:key] = "RPM-GPG-KEY-erlang_solutions"
+
 # REMI
 default[:repo][:remi][:url] = "http://rpms.famillecollet.com/enterprise/5/remi/$basearch"
 default[:repo][:remi][:enabled] = true
