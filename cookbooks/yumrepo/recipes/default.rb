@@ -20,7 +20,7 @@
 include_recipe "yumrepo::epel"
 include_recipe "yumrepo::2600hz"
 #include_recipe "yumrepo::elff"
-include_recipe "yumrepo::remi"
+#include_recipe "yumrepo::remi"
 include_recipe "yumrepo::rpmforge"
 #include_recipe "yumrepo::dell"
 #include_recipe "yumrepo::vmware-tools"
