@@ -46,6 +46,21 @@ directory "#{node[:kazoo][:homedir]}" do
   action :create
 end
 
+directory "#{node[:kazoo][:confdir]}" do
+  owner "kazoo"
+  group "kazoo"
+  mode "0600"
+  action :create
+end
+
+template "#{node[:kazoo][:confdir]}/config.ini" do
+  source "etc-kazoo-config.ini.erb"
+  owner "kazoo"
+  group "kazoo"
+  mode "0644"
+  variables :fs_nodes => fs_nodes
+end
+
 template "#{node[:kazoo][:homedir]}/.epm" do
   source "epm.erb"
   owner "kazoo"

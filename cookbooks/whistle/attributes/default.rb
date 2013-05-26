@@ -4,6 +4,7 @@ set[:kazoo][:kazoo_erl_dir] = "/opt/kazoo/ecallmgr"
 set[:kazoo][:kazoo_git_url] = "git@source.2600hz.org:whistle.git"
 set[:kazoo][:default_apps] = "sysconf, notify, cdr, conference, stepswitch, callflow, crossbar, media_mgr, hangups, registrar"
 set[:kazoo][:homedir] = "/opt/kazoo"
+set[:kazoo][:confdir] = "/etc/kazoo"
 
 # attribs for user
 set[:bigcouch][:erlang][:cookie] = "cookiemonster"
