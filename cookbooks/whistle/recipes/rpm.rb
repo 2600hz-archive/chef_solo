@@ -86,6 +86,7 @@ template "#{node[:kazoo][:homedir]}/lib/whistle_amqp-1.0.0/priv/startup.config" 
   owner "kazoo"
   group "kazoo"
   mode "0644"
+  variables :fs_nodes => fs_nodes
 end
 
 template "#{node[:kazoo][:homedir]}/ecallmgr/conf/vm.args" do
