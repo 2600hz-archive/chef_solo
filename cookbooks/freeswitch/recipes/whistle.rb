@@ -23,7 +23,7 @@ opensips = data_bag('accounts')
 #	package pkg do
 #	  action :install
 #	end
-end
+#end
 
 case node[:platform]
 when "debian", "ubuntu"
@@ -96,7 +96,6 @@ when "centos", "redhat", "fedora", "amazon"
     freeswitch-endpoint-rtmp
     freeswitch-endpoint-skinny
     freeswitch-endpoint-skypopen
-    freeswitch-event-erlang-event
     freeswitch-event-kazoo
     freeswitch-event-json-cdr
     freeswitch-event-multicast
@@ -217,5 +216,5 @@ script "change ownership of freeswitch dirs" do
   end
 
 bluepill_service "freeswitch" do
-  action [:enabled]
+  action [:enable]
 end
