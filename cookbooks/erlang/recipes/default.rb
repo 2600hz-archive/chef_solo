@@ -16,34 +16,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-#packages = value_for_platform(
-#        [ "centos", "redhat", "fedora", "suse" ] => {
-#          "default" => %w(unixODBC-devel tk)
-#        },
-#        [ "ubuntu", "debian"] => {
-#          "default" => %w( unixODBC-dev)
-#        }
-#)
-
-case node[:platform]
-when "debian", "ubuntu"
-  packages.each do |pkg|
-        yum_package pkg do
-          action :install
-          arch "x86_64"
-        end
-  end
-  erlpkg = node[:erlang][:gui_tools] ? "erlang" : "erlang-nox"
-  package erlpkg
-  package "erlang-dev"
-when "centos", "redhat", "fedora"
-  packages.each do |pkg|
-        yum_package pkg do
-          action :install
-          arch "x86_64"
-        end
-  end
   package "esl-erlang"
-when "amazon"
-  package "esl-erlang"
-end
