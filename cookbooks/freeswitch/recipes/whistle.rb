@@ -9,20 +9,20 @@ include_recipe "bluepill"
 
 opensips = data_bag('accounts')
 
-packages = value_for_platform(
-	[ "centos", "redhat", "fedora", "suse", "amazon" ] => {
-	  "default" => %w(curl unzip mysql-server ncurses-devel ncurses-devel e2fsprogs-libs glibc libgcrypt openssl openssl-devel zlib zlib-devel libgcc libogg libogg-devel libidn libstdc++ libjpeg postgresql-libs gnutls gnutls-devel expat-devel libtiff libtiff-devel libtheora libtheora-devel alsa-lib alsa-lib-devel unixODBC unixODBC-devel libvorbis libvorbis-devel flite)
-	},
-	[ "ubuntu", "debian"] => {
-	  "default" => %w( libasound2  libogg0 libvorbis0a autoconf libncurses5-dev debconf-utils vim unixODBC strace unixODBC-dev libtiff4 libtiff4-dev libtool)
-	},
-	"default" => %w{libtiff libtiff-devel libtheora libtheora-devel alsa-lib alsa-lib-devel unixODBC unixODBC-devel libvorbis libvorbis-devel}
-)
-
-packages.each do |pkg|
-	package pkg do
-	  action :install
-	end
+#packages = value_for_platform(
+#	[ "centos", "redhat", "fedora", "suse", "amazon" ] => {
+#	  "default" => %w(curl unzip e2fsprogs-libs glibc libgcrypt openssl openssl-devel zlib zlib-devel libgcc libogg libogg-devel libidn libstdc++ libjpeg postgresql-libs gnutls gnutls-devel expat-devel libtiff libtiff-devel libtheora libtheora-devel alsa-lib alsa-lib-devel libvorbis libvorbis-devel flite)
+#	},
+#	[ "ubuntu", "debian"] => {
+#	  "default" => %w( libasound2  libogg0 libvorbis0a autoconf libncurses5-dev debconf-utils vim unixODBC strace unixODBC-dev libtiff4 libtiff4-dev libtool)
+#	},
+#	"default" => %w{libtiff libtiff-devel libtheora libtheora-devel alsa-lib alsa-lib-devel libvorbis libvorbis-devel}
+#)
+#
+#packages.each do |pkg|
+#	package pkg do
+#	  action :install
+#	end
 end
 
 case node[:platform]
@@ -73,7 +73,6 @@ when "centos", "redhat", "fedora", "amazon"
     freeswitch-application-soundtouch
     freeswitch-application-spy
     freeswitch-application-stress
-    freeswitch-application-valet_parking
     freeswitch-asrtts-flite
     freeswitch-codec-bv
     freeswitch-codec-celt
@@ -133,18 +132,18 @@ when "centos", "redhat", "fedora", "amazon"
     EOH
   end
 
-  script "remove default sip_profile" do
-    interpreter "bash"
-    user "root"
-    cwd "/etc/freeswitch/sip_profiles"
-    code <<-EOH
-        cd /etc/freeswitch/sip_profiles
-        rm -f external.xml internal-ipv6.xml
-        rm -Rf internal
-        rm -Rf external
-    EOH
-    ignore_failure true
-  end
+#  script "remove default sip_profile" do
+#    interpreter "bash"
+#    user "root"
+#    cwd "/etc/freeswitch/sip_profiles"
+#    code <<-EOH
+#        cd /etc/freeswitch/sip_profiles
+#        rm -f external.xml internal-ipv6.xml
+#        rm -Rf internal
+#        rm -Rf external
+#    EOH
+#    ignore_failure true
+#  end
 
   template "/etc/default/freeswitch" do
     source "freeswitch.erb"
@@ -161,18 +160,12 @@ when "centos", "redhat", "fedora", "amazon"
   end
 end
 
-service "freeswitch" do
-  reload_command "/opt/freeswitch/bin/fs_cli -x 'reloadxml' && /opt/freeswitch/bin/fs_cli -x 'reloadacl'"
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable ]
-end
-
-directory "/opt/freeswitch/log" do
-  action :create
-  owner "freeswitch"
-  group "daemon"
-  mode "0755"
-end
+#directory "/opt/freeswitch/log" do
+#  action :create
+#  owner "freeswitch"
+#  group "daemon"
+#  mode "0755"
+#end
 
 directory "/usr/share/freeswitch/http_cache" do
   action :create
@@ -181,6 +174,7 @@ directory "/usr/share/freeswitch/http_cache" do
   mode "0755"
 end
 
+# If the default FS directory exists, with no .git file, delete it in preparation of whistle-fs
 directory "/etc/freeswitch/" do
   not_if { ::FileTest.exists?("/etc/freeswitch/.git/config") }
   recursive true
@@ -189,28 +183,8 @@ end
 
 git "/etc/freeswitch" do
   destination "/etc/freeswitch"
-  repository "git://github.com/2600hz/whistle-fs.git"
-  if node.chef_environment == "qa"
-    reference "qa"
-  else
-    reference "master"
-  end
+  repository "git://github.com/2600hz/kazoo-fs.git"
   action :sync
-end
-
-template "/etc/freeswitch/autoload_configs/.erlang.cookie" do
-  source "erlang.cookie.erb"
-  owner "freeswitch"
-  group "daemon"
-  mode	"0600"
-  notifies :reload, resources(:service => "freeswitch")
-end
-
-template "/etc/freeswitch/autoload_configs/erlang_event.conf.xml" do
-  source "erlang_event.conf.xml.erb"
-  owner "freeswitch"
-  group "daemon"
-  mode "0644"
 end
 
 template "/etc/freeswitch/autoload_configs/kazoo.conf.xml" do
@@ -227,28 +201,8 @@ template "/etc/security/limits.d/freeswitch.limits.conf" do
   mode   "0644"
 end
 
-template "/etc/freeswitch/autoload_configs/acl.conf.xml" do
-  source "#{node[:freeswitch][:acl_conf_file]}"
-  owner "freeswitch"
-  group "daemon"
-  mode "0644"
-  variables :opensips => opensips
-end
-
 template "/etc/bluepill/freeswitch.pill" do
   source "freeswitch.pill.erb"
-end
-
-template "/etc/bashrc" do
-  source "bashrc.erb"
-  mode "0644"
-end
-
-cookbook_file "/usr/local/bin/fetch_remote_audio.sh" do
-  source "fetch_remote_audio.sh"
-  mode "0755"
-  owner "root"
-  group "root"
 end
 
 script "change ownership of freeswitch dirs" do
@@ -263,5 +217,5 @@ script "change ownership of freeswitch dirs" do
   end
 
 bluepill_service "freeswitch" do
-  action [:load]
+  action [:enabled]
 end
