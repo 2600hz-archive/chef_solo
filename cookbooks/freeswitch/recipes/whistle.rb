@@ -109,8 +109,6 @@ when "centos", "redhat", "fedora", "amazon"
     freeswitch
     freeswitch-lang-en
     freeswitch-xml-curl
-    freeswitch-custom-sounds
-    freeswitch-custom-music
     freeswitch-sounds-en-us-callie-8000
     freeswitch-sounds-music-8000
     }.each do |pkg|
