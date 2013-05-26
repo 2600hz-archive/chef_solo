@@ -1,0 +1,29 @@
+; Cooked and Served up by Chef for <%= node[:fqdn] %>
+; ; Local modifications will be overwritten.
+;
+; Kazoo Configuration Settings
+
+<% @fs_nodes['whapps']['servers'].each do |fqdn, ipaddress| -%>
+[amqp]
+  uri = "amqp://guest:guest@<%= ipaddress %>:5672"
+<% end -%>
+
+[bigcouch]
+compact_automatically = true
+cookie = <%= node['erlang_cookie'] %>
+ip = "<%= node[:ipaddress] %>"
+port = <%= node[:haproxy][:proxy_port] %>
+username = "<%= node[:couchdb_username] %>"
+password = "<%= node[:couchdb_plaintext_password] %>"
+admin_port = <%= node[:haproxy][:admin_proxy_port] %>
+
+[whistle_apps]
+cookie = <%= node['erlang_cookie'] %>
+
+[ecallmgr]
+cookie = <%= node['erlang_cookie'] %>
+
+[log]
+syslog = info
+console = notice
+file = error
