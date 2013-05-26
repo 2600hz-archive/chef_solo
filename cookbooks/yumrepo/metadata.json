@@ -47,6 +47,19 @@
       "display_name": "repo/remi",
       "description": "REMI repo attributes"
     },
+    "repo/remi": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "hash",
+      "recipes": [
+
+      ],
+      "display_name": "repo/remi",
+      "description": "REMI repo attributes"
+    },
     "repo/elff/enabled": {
       "required": "recommended",
       "calculated": false,
