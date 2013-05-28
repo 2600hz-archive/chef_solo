@@ -193,6 +193,20 @@ link "/etc/freeswitch" do
 end
 
 
+template "/root/.fs_cli_conf" do
+  source "fs_cli_conf.erb"
+  owner "root"
+  group "root"
+  mode "0600"
+end
+
+template "/etc/freeswitch/autoload_configs/event_socket.conf.xml" do
+  source "event_socket.conf.xml.erb"
+  owner "freeswitch"
+  group "daemon"
+  mode "0644"
+end
+
 template "/etc/freeswitch/autoload_configs/kazoo.conf.xml" do
   source "kazoo.conf.xml.erb"
   owner "freeswitch"
