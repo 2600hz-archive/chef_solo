@@ -69,9 +69,11 @@ when "centos","redhat","amazon"
   end
 
   service "bigcouch" do
-    supports :start => true, :restart => true, :stop => true
-    restart_command "/etc/init.d/bigcouch stop && sleep 8 && /etc/init.d/bigcouch start"
-    action [ :enable ]
+    supports :restart => true, :start => true, :stop => true
+    restart_command "bluepill bigcouch stop; bluepill bigcouch quit; bluepill load /etc/bluepill/bigcouch.pill; bluepill bigcouch start"
+    stop_command "bluepill bigcouch stop; bluepill bigcouch quit"
+    start_command "bluepill load /etc/bluepill/bigcouch.pill; bluepill bigcouch start"
+    action :start
   end
 
 end
