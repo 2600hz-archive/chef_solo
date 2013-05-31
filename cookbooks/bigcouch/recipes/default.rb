@@ -70,7 +70,7 @@ when "centos","redhat","amazon"
 
   bluepill_service "bigcouch" do
     supports :restart => true, :stop => true, :start => true
-    action :start
+    action :load
   end
 
 end
