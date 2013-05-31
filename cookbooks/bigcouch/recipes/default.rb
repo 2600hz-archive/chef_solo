@@ -68,10 +68,9 @@ when "centos","redhat","amazon"
     mode "0755"
   end
 
-  service "bigcouch" do
-    supports :start => true, :restart => true, :stop => true
-    restart_command "/etc/init.d/bigcouch stop && sleep 8 && /etc/init.d/bigcouch start"
-    action [ :enable ]
+  bluepill_service "bigcouch" do
+    supports :restart => true, :stop => true, :start => true
+    action :load
   end
 
 end
