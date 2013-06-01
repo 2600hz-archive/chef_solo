@@ -27,6 +27,8 @@ user "bigcouch" do
   system true
   shell "/bin/bash"
   home "/opt/bigcouch"
+  supports :manage_home => true
+  action :create
 end
 
 template "/opt/bigcouch/.erlang.cookie" do
