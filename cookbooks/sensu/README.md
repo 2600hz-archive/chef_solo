@@ -4,7 +4,8 @@ Provides LWRP's and service recipes to install and configure
 [Sensu](https://github.com/sensu/sensu/wiki), a monitoring framework.
 
 This cookbook provides the building blocks for creating a monitoring
-cookbook specific to your environment (wrapper).
+cookbook specific to your environment (wrapper). Without such a
+wrapper, no Sensu configuration files will be created for your nodes.
 
 An example wrapper cookbook can be found
 [HERE](https://github.com/portertech/chef-monitor).
@@ -127,6 +128,8 @@ are to use the embedded Ruby in the monolithic package.
 
 `node.sensu.api.host` - Sensu API host, for other services to reach it.
 
+`node.sensu.api.bind` - Sensu API bind address.
+
 `node.sensu.api.port` - Sensu API port.
 
 ### Sensu Dashboard
@@ -169,7 +172,7 @@ sensu_check "redis_process" do
   handlers ["default"]
   subscribers ["redis"]
   interval 30
-  additional(:notification => "Redis is not running")
+  additional(:notification => "Redis is not running", :occurrences => 5)
 end
 ```
 
