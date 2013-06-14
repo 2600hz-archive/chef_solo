@@ -21,7 +21,7 @@ package_options = ""
 
 case node.platform_family
 when "debian"
-  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
 
   include_recipe "apt"
 
@@ -36,6 +36,7 @@ when "rhel"
   include_recipe "yum"
 
   yum_repository "sensu" do
+    description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{node['platform_version'].to_i}/$basearch/"
     action :add
@@ -43,9 +44,6 @@ when "rhel"
 when "fedora"
   include_recipe "yum"
 
-  # the sensu yum repo uses rhel versioning to segment builds, so we need to map
-  # fedora versions to the closest rhel version here.
-  # based on: http://en.wikipedia.org/wiki/Red_Hat_Enterprise_Linux#Relationship_to_free_and_community_distributions
   rhel_version_equivalent = case node.platform_version.to_i
   when 6..11  then 5
   when 12..18 then 6
@@ -55,6 +53,7 @@ when "fedora"
   end
 
   yum_repository "sensu" do
+    description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{rhel_version_equivalent}/$basearch/"
     action :add
@@ -64,6 +63,7 @@ end
 package "sensu" do
   version node.sensu.version
   options package_options
+  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
 
 template "/etc/default/sensu" do
