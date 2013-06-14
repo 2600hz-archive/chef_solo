@@ -43,7 +43,7 @@ when "centos", "redhat", "fedora"
           arch "x86_64"
         end
   end
-  package "esl-erlang"
+  package "erlang"
 when "amazon"
-  package "esl-erlang"
+  package "erlang"
 end
