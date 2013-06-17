@@ -21,6 +21,11 @@ include_recipe "chef-monitor::default"
 
 sensu_gem "carrier-pigeon"
 
+cookbook_file "/etc/sensu/handlers/irc.rb" do
+  source "handlers/irc.rb"
+  mode 0755
+end
+
 sensu_handler "irc" do
   type "pipe"
   command "irc.rb"
