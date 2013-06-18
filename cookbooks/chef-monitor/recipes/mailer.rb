@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: chef-monitor
-# Recipe:: irc
+# Recipe:: mailer
 #
-# Copyright 2012, Stephen Lum
+# Copyright 2013, 2600hz Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,18 +19,29 @@
 
 include_recipe "chef-monitor::default"
 
-sensu_gem "carrier-pigeon"
+service "postfix" do
+  supports :status => true, :restart => true, :reload => true
+  action :enable
+end
 
-cookbook_file "/etc/sensu/handlers/irc.rb" do
-  source "handlers/irc.rb"
+service "postfix" do
+  action :start
+end
+
+sensu_gem "mail" do
+  version "2.4.0"
+end
+
+cookbook_file "/etc/sensu/handlers/mailer.rb" do
+  source "handlers/mailer.rb"
   mode 0755
 end
 
-sensu_handler "irc" do
+sensu_handler "mailer" do
   type "pipe"
-  command "irc.rb"
+  command "/etc/sensu/handlers/mailer.rb"
 end
 
-sensu_snippet "irc" do
-  content({:irc_server => "#{node[:irc_url]}", :irc_password => "#{node[:irc_password]}"})
+sensu_snippet "mailer" do
+  content({:mail_from => "#{node[:mail_from]}", :mail_to => "#{node[:mail_to]}", :smtp_address => "#{node[:smtp_address]}", :smtp_port => "#{node[:smtp_port]}", :smtp_domain => "#{node[:smtp_domain]}"})
 end
