@@ -2,7 +2,7 @@
 # Cookbook Name:: chef-monitor
 # Recipe:: check_sip
 #
-# Copyright 2013, Stephen Lum
+# Copyright 2013 2600hz Inc. <xavier@2600hz.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,23 +20,16 @@
 include_recipe "chef-monitor::default"
 
 
-%w[
-  nagios-plugins-all
-  perl-Time-HiRes
-].each do |pkg|
-  yum_package "#{pkg}"
-end
-
-
-cookbook_file "/usr/lib64/nagios/plugins/check_sip" do
-  source "plugins/check_sip"
+cookbook_file "etc/sensu/plugins/check_sip.rb" do
+  source "plugins/check_sip.rb"
   mode 0755
 end
 
 sensu_check "check_sip" do
-  command "PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_sip -u sip:1234@#{node['ipaddress']} -p 5060 -s"
+  command "check_sip.rb -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 5060 -s"
   handlers ["default"]
   subscribers ["sip"]
   interval 30
-  additional(:notification => "FreeSWITCH is not running")
+  additional(:notification => "No SIP Response Received")
 end
+
