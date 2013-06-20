@@ -22,7 +22,7 @@ include_recipe "chef-monitor::default"
 %w[
 	check-banner.rb
 	check-disk.rb
-	check-mem.sh
+	check-ram.rb
 	check_uptime.sh
 	load-metrics.rb
 	metrics-netstat-tcp.rb
@@ -41,8 +41,8 @@ sensu_check "check_disk -w 80 -c 90" do
   interval 30
 end
 
-sensu_check "check_mem" do
-  command "check-mem.sh"
+sensu_check "check-ram" do
+  command "check-ram.rb"
   handlers ["default"]
   subscribers ["all"]
   interval 30
