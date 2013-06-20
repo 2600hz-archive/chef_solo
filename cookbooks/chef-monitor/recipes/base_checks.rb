@@ -34,7 +34,7 @@ include_recipe "chef-monitor::default"
 	end
 end
 
-sensu_check "check_disk" do
+sensu_check "check_disk -w 80 -c 90" do
   command "check-disk.rb"
   handlers ["default"]
   subscribers ["all"]
