@@ -25,7 +25,7 @@ cookbook_file "/etc/sensu/plugins/check-http.rb" do
 end
 
 sensu_check "bigcouch_process" do
-  command "check-procs.rb -p setcookie -C 1"
+  command "check-procs.rb -p '-progname bigcouch' -C 1"
   handlers ["default"]
   subscribers ["bigcouch"]
   interval 30

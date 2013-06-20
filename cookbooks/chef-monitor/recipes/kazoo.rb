@@ -46,7 +46,7 @@ sensu_check "check_whistle_apps_process" do
 end
 
 sensu_check "check_crossbar_8000" do
-  command "check-http.rb -p 8000 -u http://localhost:8000/ -q 'Howdy'"
+  command "check-http.rb -p 8000 -u http://localhost:8000/ -q 'Kazoo'"
   handlers ["default"]
   subscribers ["kazoo"]
   interval 60
