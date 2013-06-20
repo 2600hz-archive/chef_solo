@@ -2,7 +2,7 @@
 # Cookbook Name:: chef-monitor
 # Recipe:: check_opensips
 #
-# Copyright 2013, Stephen Lum
+# Copyright 2013 2600hz Inc. <xavier@2600hz.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,21 +19,14 @@
 
 include_recipe "chef-monitor::default"
 
-%w[
-  nagios-plugins-all
-  perl-Time-HiRes
-].each do |pkg|
-  yum_package "#{pkg}"
-end
 
-
-cookbook_file "/usr/lib64/nagios/plugins/check_sip" do
-  source "plugins/check_sip"
+cookbook_file "etc/sensu/plugins/check_sip.rb" do
+  source "plugins/check_sip.rb"
   mode 0755
 end
 
 sensu_check "check_sip_5060" do
-  command "PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_sip -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 5060 -s"
+  command "check_sip.rb -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 5060 -s"
   handlers ["default"]
   subscribers ["opensips"]
   interval 60
@@ -41,9 +34,10 @@ sensu_check "check_sip_5060" do
 end
 
 sensu_check "check_sip_7000" do
-  command "PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_sip -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 7000 -s"
+  command "check_sip.rb -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 7000 -s"
   handlers ["default"]
   subscribers ["opensips"]
   interval 60
   additional(:notification => "UDP 7000 is not responding")
 end
+
