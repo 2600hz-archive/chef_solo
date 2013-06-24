@@ -18,7 +18,7 @@
 #
 
 include_recipe "chef-monitor::default"
-include_recipe "chef-monitor::rabbitmq"
+#include_recipe "chef-monitor::rabbitmq"
 
 %w[
   check_whapps.rb
