@@ -46,10 +46,10 @@ sensu_check "check_whistle_apps_process" do
 end
 
 sensu_check "check_crossbar_8000" do
-  command "check-http.rb -p 8000 -u http://localhost:8000/ -q 'Kazoo'"
+  command "check-http.rb -t 30 -u http://localhost:8000/ -q 'Kazoo'"
   handlers ["default"]
   subscribers ["kazoo"]
-  interval 60
+  interval 120
   additional(:notification => "Crossbar is not running")
 end
 
