@@ -32,6 +32,7 @@ sensu_gem "rest-client"
 	end
 end
 
+=begin
 sensu_check "rabbitmq_overview_metrics" do
   command "rabbitmq-overview-metrics.rb --scheme stats.:::name:::"
   handlers ["graphite"]
@@ -48,6 +49,7 @@ sensu_check "rabbitmq-queue-metrics" do
   standalone true
   interval 60
 end
+=end
 
 sensu_check "rabbitmq-alive" do
   command "rabbitmq-alive.rb"
