@@ -26,7 +26,7 @@ include_recipe "chef-monitor::default"
 	check_uptime.sh
 	load-metrics.rb
 	metrics-netstat-tcp.rb
-  metrics-net-packets.rb
+	metrics-net-packets.rb
 ].each do |check|
 	cookbook_file "/etc/sensu/plugins/#{check}" do
   	source "plugins/#{check}"
@@ -48,6 +48,7 @@ sensu_check "check-ram" do
   interval 30
 end
 
+=begin
 sensu_check "load_metrics" do
   command "load-metrics.rb --scheme stats.:::name:::"
   handlers ["graphite"]
@@ -55,6 +56,7 @@ sensu_check "load_metrics" do
   interval 30
   type "metric"
 end
+=end
 
 sensu_check "check_ssh" do
   command "check-banner.rb -p #{node['ssh_port'] || 22}"
@@ -63,6 +65,7 @@ sensu_check "check_ssh" do
   interval 30
 end
 
+=begin
 sensu_check "metrics-netstat-tcp" do
   command "metrics-netstat-tcp.rb --scheme stats.:::name:::"
   handlers ["graphite"]
@@ -78,6 +81,7 @@ sensu_check "metrics-net-packets" do
   interval 30
   type "metric"
 end
+=end
 
 sensu_check "check_uptime" do
   command "check_uptime.sh"
