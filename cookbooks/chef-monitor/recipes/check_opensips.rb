@@ -19,7 +19,7 @@
 
 include_recipe "chef-monitor::default"
 
-
+=begin
 cookbook_file "etc/sensu/plugins/check_sip.rb" do
   source "plugins/check_sip.rb"
   mode 0755
@@ -39,5 +39,14 @@ sensu_check "check_sip_7000" do
   subscribers ["opensips"]
   interval 60
   additional(:notification => "UDP 7000 is not responding")
+end
+=end
+
+sensu_check "opensips_process" do
+  command "check-procs.rb -p 'opensips' -C 1"
+  handlers ["default"]
+  subscribers ["opensips"]
+  interval 30
+  additional(:notification => "OpenSIPs is not running")
 end
 
