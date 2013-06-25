@@ -26,7 +26,7 @@ cookbook_file "etc/sensu/plugins/check_sip.rb" do
 end
 
 sensu_check "check_sip_5060" do
-  command "check_sip.rb -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 5060 -s"
+  command "check_sip.rb -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 5060"
   handlers ["default"]
   subscribers ["opensips"]
   interval 60
@@ -34,7 +34,7 @@ sensu_check "check_sip_5060" do
 end
 
 sensu_check "check_sip_7000" do
-  command "check_sip.rb -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 7000 -s"
+  command "check_sip.rb -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 7000"
   handlers ["default"]
   subscribers ["opensips"]
   interval 60
