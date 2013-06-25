@@ -19,12 +19,12 @@
 
 include_recipe "chef-monitor::default"
 
-=begin
 cookbook_file "etc/sensu/plugins/check_sip.rb" do
   source "plugins/check_sip.rb"
   mode 0755
 end
 
+=begin
 sensu_check "check_sip_5060" do
   command "check_sip.rb -H #{node['fqdn']} -u sip:1234@#{node['ipaddress']} -p 5060"
   handlers ["default"]
@@ -43,7 +43,7 @@ end
 =end
 
 sensu_check "opensips_process" do
-  command "check-procs.rb -p 'opensips' -C 1 -c 30"
+  command "check-procs.rb -p 'opensips' -C 1 -w 30 -c 31"
   handlers ["default"]
   subscribers ["opensips"]
   interval 30
