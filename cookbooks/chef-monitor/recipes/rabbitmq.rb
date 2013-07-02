@@ -25,6 +25,7 @@ sensu_gem "rest-client"
 	rabbitmq-queue-metrics.rb
 	rabbitmq-alive.rb
 	check-rabbitmq-messages.rb
+        rabbitmq-nodes.rb
 ].each do |check|
 	cookbook_file "/etc/sensu/plugins/#{check}" do
   	source "plugins/#{check}"
@@ -60,6 +61,13 @@ end
 
 sensu_check "check-rabbitmq-messages" do
   command "check-rabbitmq-messages.rb"
+  handlers ["default"]
+  standalone true
+  interval 60
+end
+
+sensu_check "rabbitmq-nodes" do
+  command "rabbitmq-nodes.rb"
   handlers ["default"]
   standalone true
   interval 60
