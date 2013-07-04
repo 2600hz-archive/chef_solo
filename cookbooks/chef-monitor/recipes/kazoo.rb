@@ -70,3 +70,11 @@ sensu_check "check_whapps" do
   interval 60
   additional(:notification => "Some Whapps are not running")
 end
+
+sensu_check "check-ecallmgr" do
+  command "check-ecallmgr.rb"
+  handlers ["default"]
+  subscribers ["kazoo"]
+  interval 60
+  additional(:notification => "Some FreeSWITCH nodes are not connected to ecallmgr")
+end
