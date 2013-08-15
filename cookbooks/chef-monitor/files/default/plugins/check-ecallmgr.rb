@@ -14,14 +14,15 @@ fs_db.map!{|c| c.chomp }
 diff = ( fs_connected - fs_db ) | ( fs_db - fs_connected )
 
 if diff.empty?
-  puts "OK - all FreeSWITCH nodes are currently connected to ecallmgr"
+  puts "OK - all FreeSWITCH nodes are connected"
   exit 0
-elsif fs_connected.count == 0
-  puts "None of the FreeSWITCH nodes are connected to ecallmgr!"
-  exit 2
-elsif diff
+else
   diff.each do |x|
-  puts "#{x} is not connected..."
+    if x != ""
+      puts "#{x} is not connected to ecallmgr..."
+    end
   end
   exit 1
 end
+
+exit 3
