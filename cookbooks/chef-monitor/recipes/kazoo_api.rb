@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: chef-monitor
-# Recipe:: kazoo
+# Recipe:: kazoo_api
 #
 # Copyright 2013, Stephen Lum, 2600hz inc
 #

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: chef-monitor
-# Recipe:: kazoo
+# Recipe:: ecallmgr
 #
 # Copyright 2013, 2600hz, inc
 #
