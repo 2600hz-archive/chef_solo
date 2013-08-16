@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: chef-monitor
-# Recipe:: kazoo
+# Recipe:: kazoo_apps
 #
-# Copyright 2013, Stephen Lum
+# Copyright 2013, Stephen Lum, 2600hz inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,24 +18,14 @@
 #
 
 include_recipe "chef-monitor::default"
-#include_recipe "chef-monitor::rabbitmq"
 
 %w[
   check_whapps.rb
-  check-ecallmgr.rb
 ].each do |check|
   cookbook_file "/etc/sensu/plugins/#{check}" do
   source "plugins/#{check}"
   mode 0755
   end
-end
-
-sensu_check "check_ecallmgr_process" do
-  command "check-procs.rb -p '-name ecallmgr' -C 1 -w 1"
-  handlers ["default"]
-  subscribers ["kazoo"]
-  interval 60
-  additional(:notification => "eCallManager is not running")
 end
 
 sensu_check "check_whistle_apps_process" do
@@ -44,14 +34,6 @@ sensu_check "check_whistle_apps_process" do
   subscribers ["kazoo"]
   interval 60
   additional(:notification => "Whistle Apps is not running")
-end
-
-sensu_check "check_crossbar_8000" do
-  command "check-http.rb -t 30 -u http://localhost:8000/ -q 'Kazoo'"
-  handlers ["default"]
-  subscribers ["kazoo"]
-  interval 120
-  additional(:notification => "Crossbar is not running")
 end
 
 =begin
@@ -70,12 +52,4 @@ sensu_check "check_whapps" do
   subscribers ["kazoo"]
   interval 60
   additional(:notification => "Some Whapps are not running")
-end
-
-sensu_check "check-ecallmgr" do
-  command "check-ecallmgr.rb"
-  handlers ["default"]
-  subscribers ["kazoo"]
-  interval 60
-  additional(:notification => "Some FreeSWITCH nodes are not connected to ecallmgr")
 end
