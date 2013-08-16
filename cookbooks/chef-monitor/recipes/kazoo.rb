@@ -22,6 +22,7 @@ include_recipe "chef-monitor::default"
 
 %w[
   check_whapps.rb
+  check-ecallmgr.rb
 ].each do |check|
   cookbook_file "/etc/sensu/plugins/#{check}" do
   source "plugins/#{check}"
