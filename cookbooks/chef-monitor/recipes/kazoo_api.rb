@@ -31,7 +31,7 @@ end
 sensu_check "check_whistle_apps_process" do
   command "check-procs.rb -p '-name whistle_apps' -C 1 -w 1"
   handlers ["default"]
-  subscribers ["kazoo"]
+  subscribers ["kazoo_api"]
   interval 60
   additional(:notification => "Whistle Apps is not running")
 end
@@ -39,7 +39,7 @@ end
 sensu_check "check_crossbar_8000" do
   command "check-http.rb -t 30 -u http://localhost:8000/ -q 'Kazoo'"
   handlers ["default"]
-  subscribers ["kazoo"]
+  subscribers ["kazoo_api"]
   interval 120
   additional(:notification => "Crossbar is not responding to http requests")
 end
@@ -48,7 +48,7 @@ end
 sensu_check "check_whistle_auth" do
   command "check_whistle_auth.sh"
   handlers ["default"]
-  subscribers ["kazoo"]
+  subscribers ["kazoo_api"]
   interval 60
   additional(:notification => "Whistle authentication is broken")
 end
@@ -57,7 +57,7 @@ end
 sensu_check "check_whapps" do
   command "check_whapps.rb"
   handlers ["default"]
-  subscribers ["kazoo"]
+  subscribers ["kazoo_api"]
   interval 60
   additional(:notification => "Some Whapps are not running")
 end

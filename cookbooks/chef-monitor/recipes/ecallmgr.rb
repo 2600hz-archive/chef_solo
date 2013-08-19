@@ -31,7 +31,7 @@ end
 sensu_check "check_ecallmgr_process" do
   command "check-procs.rb -p '-name ecallmgr' -C 1 -w 1"
   handlers ["default"]
-  subscribers ["kazoo"]
+  subscribers ["ecallmgr"]
   interval 60
   additional(:notification => "eCallManager is not running")
 end
@@ -39,7 +39,7 @@ end
 sensu_check "check-ecallmgr" do
   command "check-ecallmgr.rb"
   handlers ["default"]
-  subscribers ["kazoo"]
+  subscribers ["ecallmgr"]
   interval 60
   additional(:notification => "Some FreeSWITCH nodes are not connected to ecallmgr")
 end
