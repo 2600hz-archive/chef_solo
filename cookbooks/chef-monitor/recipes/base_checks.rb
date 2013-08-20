@@ -2,7 +2,7 @@
 # Cookbook Name:: chef-monitor
 # Recipe:: base_checks
 #
-# Copyright 2013, Stephen Lum
+# Copyright 2013, Stephen Lum, 2600hz inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ sensu_check "check_disk" do
   command "check-disk.rb -w 80 -c 90"
   handlers ["default"]
   subscribers ["all"]
-  interval 30
+  interval 60
 end
 
 sensu_check "check-ram" do
@@ -62,7 +62,7 @@ sensu_check "check_ssh" do
   command "check-banner.rb -p #{node['ssh_port'] || 22}"
   handlers ["default"]
   subscribers ["all"]
-  interval 30
+  interval 60
 end
 
 =begin
@@ -100,4 +100,11 @@ sensu_check "check_iptables" do
   additional(:notification => "Iptables check failed")
 end
 =end
+
+sensu_check "check-load" do
+  command "check-load.rb -w 4,8,20 -c 6,15,30"
+  handlers ["default"]
+  subscribers ["all"]
+  interval 60
+end
 
