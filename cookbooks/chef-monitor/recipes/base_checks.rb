@@ -24,6 +24,7 @@ include_recipe "chef-monitor::default"
 	check-disk.rb
 	check-ram.rb
 	check_uptime.sh
+	check-load.rb
 	load-metrics.rb
 	metrics-netstat-tcp.rb
 	metrics-net-packets.rb
