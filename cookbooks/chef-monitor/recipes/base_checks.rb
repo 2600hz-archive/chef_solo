@@ -28,6 +28,7 @@ include_recipe "chef-monitor::default"
 	load-metrics.rb
 	metrics-netstat-tcp.rb
 	metrics-net-packets.rb
+	vmstat-metrics.rb
 ].each do |check|
 	cookbook_file "/etc/sensu/plugins/#{check}" do
   	source "plugins/#{check}"
@@ -47,6 +48,14 @@ sensu_check "check-ram" do
   handlers ["default"]
   subscribers ["all"]
   interval 30
+end
+
+sensu_check "vmstat-metrics" do
+  command "vmstat-metrics.rb"
+  handlers ["graphite"]
+  subscribers ["all"]
+  interval 30
+  type "metric"
 end
 
 =begin

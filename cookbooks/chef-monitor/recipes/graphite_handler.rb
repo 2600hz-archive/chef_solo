@@ -52,7 +52,7 @@ sensu_handler "graphite_amqp" do
   type "amqp"
   exchange(
     :type => "topic",
-    :name => "graphite",
+    :name => "metrics",
     :durable => true
   )
   mutator "only_check_output"
