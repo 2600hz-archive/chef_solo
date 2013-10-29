@@ -43,10 +43,10 @@ end
 =end
 
 sensu_check "opensips_process" do
-  command "check-procs.rb -p 'opensips' -C 1 -w 30 -c 31"
+  command "check-procs.rb -p 'kamailio' -C 1 -w 30 -c 31"
   handlers ["default"]
   subscribers ["opensips"]
   interval 30
-  additional(:notification => "OpenSIPs is not running")
+  additional(:notification => "Kamailio is not happy")
 end
 
