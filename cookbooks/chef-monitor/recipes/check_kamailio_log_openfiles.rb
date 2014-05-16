@@ -29,6 +29,6 @@ sensu_check "check_kamailio_log_openfiles" do
   handlers ["default"]
   standalone true
   interval 30
-  additional(:notification => "Kamailio cannot open new connections as its open files limits were reached")
+  additional(:notification => "Kamailio logs have open files descriptors errors")
 end
 
