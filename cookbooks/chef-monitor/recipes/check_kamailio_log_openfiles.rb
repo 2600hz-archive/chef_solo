@@ -25,7 +25,7 @@ cookbook_file "/etc/sensu/plugins/check_kamailio_log_openfiles.sh" do
 end
 
 sensu_check "check_kamailio_log_openfiles" do
-  command "check_kamailio_log_openfiles.sh"
+  command "sudo /etc/sensu/plugins/check_kamailio_log_openfiles.sh"
   handlers ["default"]
   standalone true
   interval 30
