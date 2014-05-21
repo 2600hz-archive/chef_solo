@@ -25,7 +25,7 @@ cookbook_file "/etc/sensu/plugins/check-http.rb" do
 end
 
 sensu_check "haproxy_process" do
-  command "check-procs.rb -p '-progname haproxy' -C 1"
+  command "check-procs.rb -p 'haproxy' -C 1"
   handlers ["default"]
   standalone true
   interval 30
