@@ -27,7 +27,7 @@ end
 sensu_check "haproxy_process" do
   command "check-procs.rb -p '-progname haproxy' -C 1"
   handlers ["default"]
-  subscribers ["haproxy"]
+  standalone true
   interval 30
   additional(:notification => "HAProxy is not running")
 end
@@ -35,7 +35,7 @@ end
 sensu_check "haproxy_http_response" do
   command "check-http.rb -P 15984 -u http://localhost:15984/ -q couchdb"
   handlers ["default"]
-  subscribers ["haproxy"]
+  standalone true
   interval 30
   additional(:notification => "HAProxy is not responding to http requests")
 end
