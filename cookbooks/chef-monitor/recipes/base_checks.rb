@@ -28,7 +28,6 @@ include_recipe "chef-monitor::default"
 	load-metrics.rb
 	metrics-netstat-tcp.rb
 	metrics-net-packets.rb
-	vmstat-metrics.rb
 ].each do |check|
 	cookbook_file "/etc/sensu/plugins/#{check}" do
   	source "plugins/#{check}"
