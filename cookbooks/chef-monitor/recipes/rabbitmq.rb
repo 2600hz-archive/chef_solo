@@ -67,7 +67,7 @@ sensu_check "check-rabbitmq-messages" do
 end
 
 sensu_check "rabbitmq-nodes" do
-  command "rabbitmq-nodes.rb"
+  command "rabbitmq-nodes.rb --mem_threshold 60"
   handlers ["default"]
   standalone true
   interval 60
