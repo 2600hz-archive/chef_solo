@@ -64,7 +64,6 @@ end
   check-procs.rb
   check-banner.rb
   check-http.rb
-  check-log.rb
   check-mtime.rb
   check-tail.rb
   check-fs-writable.rb
