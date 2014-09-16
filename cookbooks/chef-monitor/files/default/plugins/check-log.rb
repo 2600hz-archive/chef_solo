@@ -86,6 +86,7 @@ class CheckLog < Sensu::Plugin::Check::CLI
          :short => '-F FILE',
          :long => '--filepattern FILE'
 
+
   def run
     unknown "No log file specified" unless config[:log_file] || config[:file_pattern]
     unknown "No pattern specified" unless config[:pattern]
@@ -102,22 +103,24 @@ class CheckLog < Sensu::Plugin::Check::CLI
             end
         end
     end
-    n_warns_overall = 0
-    n_crits_overall = 0
+    n_occurences_overall = 0
     file_list.each do |log_file|
         begin
           open_log log_file
         rescue => e
           unknown "Could not open log file: #{e}"
         end
-        n_warns, n_crits = search_log
-        n_warns_overall += n_warns
-        n_crits_overall += n_crits
+        n_occurences = search_log
+        n_occurences_overall += n_occurences
     end
-    message "#{n_warns_overall} warnings, #{n_crits_overall} criticals for pattern #{config[:pattern]}"
-    if n_crits_overall > 0
-      critical
-    elsif n_warns_overall > 0
+    message "#{n_occurences_overall} occurences for pattern #{config[:pattern]} in #{config[:log_file]}"
+    if n_occurences_overall >= config[:crit]
+      if config[:only_warn]
+        warning
+      else
+        critical
+      end
+    elsif n_occurences_overall >= config[:warn]
       warning
     else
       ok
@@ -150,8 +153,7 @@ class CheckLog < Sensu::Plugin::Check::CLI
       @bytes_to_skip = 0
     end
     bytes_read = 0
-    n_warns = 0
-    n_crits = 0
+    n_occurences = 0
     if @bytes_to_skip > 0
       @log.seek(@bytes_to_skip, File::SEEK_SET)
     end
@@ -163,26 +165,14 @@ class CheckLog < Sensu::Plugin::Check::CLI
          m = line.match(config[:pattern]) unless line.match(config[:exclude])
       end
       if m
-        if m[1]
-          if config[:crit] && m[1].to_i > config[:crit]
-            n_crits += 1
-          elsif config[:warn] && m[1].to_i > config[:warn]
-            n_warns += 1
-          end
-        else
-          if config[:only_warn]
-            n_warns += 1
-          else
-            n_crits += 1
-          end
-        end
+        n_occurences += 1
       end
     end
     FileUtils.mkdir_p(File.dirname(@state_file))
     File.open(@state_file, 'w') do |file|
       file.write(@bytes_to_skip + bytes_read)
     end
-    [n_warns, n_crits]
+    n_occurences
   end
 
 end
