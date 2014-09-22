@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: monitor
+# Cookbook Name:: chef-monitor
 # Recipe:: websocket
 #
 # Copyright 2014, 2600Hz inc.
@@ -17,12 +17,12 @@
 # limitations under the License.
 #
 
-include_recipe "monitor::_websocket"
+include_recipe "chef-monitor::_websocket"
 
 sensu_check "check_websocket_http" do
   command "check-http.rb -u https://#{node['ipaddress']}:8443 -k --response-code 400"
   handlers ["default"]
   standalone true
   interval 60
-  additional(:notification => "Websocket not responding")
+  additional(:notification => "Websocket not responding to HTTP requests on port 8443")
 end

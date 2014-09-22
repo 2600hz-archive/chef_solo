@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: monitor
+# Cookbook Name:: chef-monitor
 # Recipe:: _websocket
 #
 # Copyright 2014, 2600hz inc.
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "monitor::default"
+include_recipe "chef-monitor::default"
 
 cookbook_file "/etc/sensu/plugins/check-http.rb" do
   source "plugins/check-http.rb"
