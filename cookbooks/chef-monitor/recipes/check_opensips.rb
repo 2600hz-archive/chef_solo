@@ -43,7 +43,7 @@ end
 =end
 
 sensu_check "opensips_process" do
-  command "check-procs.rb -p 'kamailio' -C 1 -w 200 -c 201"
+  command "check-procs.rb -p 'kamailio' -C 20 -w 200 -c 201"
   handlers ["default"]
   subscribers ["opensips"]
   interval 30
